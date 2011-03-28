@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model package="slideshow-manager" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" phpdoc-package="storefinder" phpdoc-subpackage="model">
+	<object class="jgSlideshowSlide" table="slideshow_slide" extends="xPDOSimpleObject">
+		<aggregate alias="Album" class="jgSlideshowAlbum" local="slideshow_album_id" foreign="id" cardinality="one" owner="foreign" />
+		<field key="slideshow_album_id" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+		<field key="web_user_id" dbtype="int" precision="8" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="start_date" dbtype="datetime" phptype="datetime" null="true" index="index" />
+		<field key="end_date" dbtype="datetime" phptype="datetime" null="true" index="index" />
+		<field key="edit_time" dbtype="datetime" phptype="datetime" null="false" />
+		<field key="sequence" dbtype="int" precision="8" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+		<field key="slide_status" dbtype="set" precision="'live','replace','future','archive','deleted','tbd'" phptype="string" null="true" default="tbd" />
+		<field key="version" dbtype="tinyint" precision="3" attributes="unsigned" phptype="integer" null="false" default="1" />
+		<field key="options" dbtype="text" phptype="string" null="true" default="" />
+		
+		<field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
+		<field key="title" dbtype="varchar" precision="100" phptype="string" null="false" default="" index="index" />
+		<field key="description" dbtype="text" phptype="string" null="false" default="" />
+		<field key="notes" dbtype="text" phptype="string" null="true" default="" />
+		<field key="html" dbtype="text" phptype="string" null="true" default="" />
+		
+		<field key="upload_time" dbtype="datetime" phptype="datetime" null="false" />
+		<field key="file_path" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
+		<field key="file_size" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="true" default="" />
+		<field key="file_type" dbtype="varchar" precision="32" phptype="string" null="true" default="" />
+		
+	</object>
+	
+	<object class="jgSlideshowAlbum" table="slideshow_album" extends="xPDOSimpleObject">
+		<composite alias="Slide" class="jgSlideshowSlide" local="id" foreign="slideshow_slide_id" cardinality="many" owner="local" />
+		<field key="title" dbtype="varchar" precision="128" phptype="string" null="false" default="" index="index" />
+		<field key="description" dbtype="mediumtext" phptype="string" null="false" />
+		<field key="file_allowed" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="file_size_limit" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
+		<field key="file_width" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
+		<field key="file_height" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
+		<field key="icon_path" dbtype="varchar" precision="255" phptype="string" null="false" />
+	</object>
+	
+</model>
