@@ -1,0 +1,70 @@
+@charset "utf-8";
+/* Revo 2.1 rc3 fix: */
+body div #modx-content {
+    height: 700px;
+    overflow: auto;
+    border: 1px solid #e4e4e4;
+    padding:5px;
+}
+/* CSS Document */
+ul#jgSlideAlbums{
+    width: 780px;
+    padding-left: 10px;
+    border: 1px solid #a2a2a2;
+    background: #eee;
+}
+ul#jgSlideAlbums li{
+    width: 220px;
+    height: 180px;
+    overflow:auto;
+    padding: 10px;
+    margin: 10px 10px 0 0;
+    border: 1px solid #a2a2a2;
+    float: left;
+    background: #fff;
+}
+ul#jgSlideAlbums li.emptyList{
+    height: 1px;
+    border: none;
+    background: none;
+    clear:both;
+    float:none;
+    margin:0;
+    padding:9px 0 0 0;
+}
+ul#jgSlideAlbums p{
+    line-height: 20px;
+    margin: 10px 0;
+}
+div.rightDiv{
+    width: 240px;
+    padding-left: 20px;
+    float:right;
+}
+div.leftDiv{
+    width: 700px;
+    float:left;
+}
+div#joshua19media_wrapper{
+    width: 780px;
+    margin:10px auto;
+}
+.clear{
+    clear:both;
+}
+.displayBlock{
+    display:block;
+}
+table.tGrid{
+    border-collapse:collapse;
+}
+table.tGrid th{
+    padding: 2px;
+}
+table.tGrid td{
+    padding: 3px;
+    border: 1px solid #a2a2a2;
+}
+table.tGrid tr:hover{
+    background:#00CCFF;
+}

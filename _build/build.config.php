@@ -7,7 +7,7 @@ define('MODX_MANAGER_PATH', MODX_BASE_PATH . 'manager/');
 define('MODX_CONNECTORS_PATH', MODX_BASE_PATH . 'connectors/');
 define('MODX_ASSETS_PATH', MODX_BASE_PATH . 'assets/');
 
-define('DB_MODEL_FOLDER', 'slideshow-manager');
+define('DB_MODEL_FOLDER', 'slideshowmanager');
 // echo 'MODX_BASE_PATH: '.MODX_BASE_PATH;
 $root = dirname(dirname(__FILE__)).'/';
 $sources = array(

@@ -1,1 +1,16 @@
 Hello World #3
+
+Github help:
+
+http://help.github.com/create-a-repo/
+http://progit.org/book/ch1-5.html
+http://book.git-scm.com/
+http://gitref.org/remotes/
+
+<?php
+$file = MODX_CORE_PATH.'components/slideshowmanager/elements/snippets/snippet.jgslideshow.php';
+if (file_exists($file)) {
+  $o = include $file;
+  //$o = 'File Found';
+} else { $o = 'File not found at: '.$file; }
+return $o;

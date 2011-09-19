@@ -1,0 +1,5 @@
+# ignore custom files
+my-notes.txt
+
+# ignore the transport files
+*.transport.zip
