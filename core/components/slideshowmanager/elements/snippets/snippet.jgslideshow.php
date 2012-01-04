@@ -6,17 +6,17 @@
  * 
  * @package slideshowmanager
  */
-//require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
+// require_once $modx->getOption('formit.core_path',null,$modx->getOption('core_path').'components/formit/').'model/formit/formit.class.php';
 // get the user input (inputName, the input array, default value)
 $album_id = $modx->getOption('album_id', $scriptProperties, 1);
 $slide_div_id = $modx->getOption('slide_div_id', $scriptProperties, 'slider');
 
-$skin = $modx->getOption('skin', $scriptProperties, 'nivo_');
-$head = $modx->getOption('headTpl', $scriptProperties, $skin.'headTpl' );
-$slide_holder = $modx->getOption('slideHolderTpl', $scriptProperties, $skin.'slideHolderTpl' );
-$slide_pane = $modx->getOption('slidePaneTpl', $scriptProperties, $skin.'slidePaneTpl' );
-$slide_pane_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'slideLinkTpl' );
-$html_caption = $modx->getOption('htmlCaptionTpl', $scriptProperties, $skin.'htmlCaptionTpl' );
+$skin = $modx->getOption('skin', $scriptProperties, 'nivo');
+$head = $modx->getOption('headTpl', $scriptProperties, $skin.'_headTpl' );
+$slide_holder = $modx->getOption('slideHolderTpl', $scriptProperties, $skin.'_slideHolderTpl' );
+$slide_pane = $modx->getOption('slidePaneTpl', $scriptProperties, $skin.'_slidePaneTpl' );
+$slide_pane_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'_slideLinkTpl' );
+$html_caption = $modx->getOption('htmlCaptionTpl', $scriptProperties, $skin.'_htmlCaptionTpl' );
 //$head = $modx->getOption('headTpl', $scriptProperties, $skin.'' );
 
 // add package
@@ -24,6 +24,7 @@ $s_path = $modx->getOption('core_path').'components/slideshowmanager/model/';
 $modx->addPackage('slideshowmanager', $s_path);
 $slide_dir = MODX_ASSETS_URL.'components/slideshowmanager/uploads/';
 
+$output = '';
 
 // get the slides for the album
 $query = $modx->newQuery('jgSlideshowSlide');
@@ -40,7 +41,7 @@ $query->sortby('sequence','ASC');
 // your code here
 //$c->limit(5);
 $slides = $modx->getCollection('jgSlideshowSlide',$query);
-// $sql = $query->toSQL();
+//$output .= $query->toSQL();
 
 // restore the default logging (to file)
 //$modx->setLogTarget($oldTarget);
@@ -50,6 +51,7 @@ $html_cap_output = '';
 $count = 0;
 foreach( $slides as $slide ){
     ++$count;
+    //$output .= '<br>Slide: '.$count;
     // go thourgh each image
     $slide_data = $slide->toArray();
     $url = $slide->get('url');
@@ -62,9 +64,9 @@ foreach( $slides as $slide ){
             '.$modx->getChunk($slide_pane_link, $slide_data);
     }
     // create html caption
-    // ?? if ( !empty($slide_data['html']) ){
+    if ( !empty($slide_data['html']) ){
         $html_cap_output .= $modx->getChunk($html_caption, $slide_data);
-    //}
+    }
     
 }
 // get the Album data and merge with slides and caption
@@ -80,6 +82,6 @@ if ( is_object($slideAlbum) ) {
     $album_data['slide_panes'] = $slide_output;
     $album_data['html_caption'] = $html_cap_output;
 }
-$o = $modx->getChunk($slide_holder, $album_data);
+$output .= $modx->getChunk($slide_holder, $album_data);
 
-return $o;
+return $output;

@@ -110,7 +110,7 @@ Cmp.grid.slide= function(config) {
             }
             ,dataIndex: 'image_path'
             ,sortable: false
-            ,width: 65 
+            ,width: 85 
             //,editor: { xtype: 'displayfield' }
         },{
             header: _('slideshowmanager.slide_start_date')

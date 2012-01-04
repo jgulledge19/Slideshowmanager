@@ -1,11 +1,21 @@
 Changelog for slideshowmanager.
 
+SlideshowManager 1.0.0 pl
+===========================
+ - made the auto installer to actually work!
+ - updated Nivo jQuery slideshow
+ - created an optional demo slideshow for first time installs 
+
+SlideshowManager 1.0.0 rc
+===========================
+ - added auto installer
+
 SlideshowManager 1.0.0 beta2
-================================================================
+============================
  - IE upload fix for mime type
 
 SlideshowManager 1.0.0 beta
-================================================================
+============================
 - Changed file paths from 'slideshow-manager' to 'slideshowmanager' 
     if you are upgrading you will need to copy /assets/components/slideshow-manager/uploads/ to 
     /assets/components/slideshowmanager/uploads/ for your current slideshows to work
@@ -13,5 +23,5 @@ SlideshowManager 1.0.0 beta
 - Lots of fixes
 
 SlideshowManager 1.0.0 alpha
-================================================================
+============================
 - Initial commit

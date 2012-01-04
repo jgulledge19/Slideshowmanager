@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="[[++site_url]]/assets/components/slideshowmanager/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="[[++site_url]]assets/components/slideshowmanager/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
 <style type="text/css">
 #slider-wrapper {
     width:[[+file_width]]px;
@@ -9,7 +9,7 @@
   position:relative;
     width:[[+file_width]]px;
     height:[[+file_height]]px;
-  background:url([[++site_url]]/assets/components/slideshowmanager/nivo-slider/demo/images/loading.gif) no-repeat 50% 50%;
+  background:url([[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/images/loading.gif) no-repeat 50% 50%;
 }
 #slider img {
   position:absolute;
@@ -30,7 +30,7 @@
   display:block;
   width:22px;
   height:22px;
-  background:url([[++site_url]]/assets/components/slideshowmanager/nivo-slider/demo/images/bullets.png) no-repeat;
+  background:url([[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/images/bullets.png) no-repeat;
   text-indent:-9999px;
   border:0;
   margin-right:3px;
@@ -44,7 +44,7 @@
   display:block;
   width:30px;
   height:30px;
-  background:url([[++site_url]]/assets/components/slideshowmanager/nivo-slider/demo/images/arrows.png) no-repeat;
+  background:url([[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/images/arrows.png) no-repeat;
   text-indent:-9999px;
   border:0;
 }
@@ -65,10 +65,36 @@ a.nivo-prevNav {
     text-decoration:underline;
 }
 </style>
-<script type="text/javascript" src="[[++site_url]]/assets/components/slideshowmanager/nivo-slider/demo/scripts/jquery-1.4.3.min.js"></script>
-<script type="text/javascript" src="[[++site_url]]/assets/components/slideshowmanager/nivo-slider/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript" src="[[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="[[++site_url]]assets/components/slideshowmanager/nivo-slider/jquery.nivo.slider.pack.js"></script>
 <script type="text/javascript">
 $(window).load(function() {
-    $('#[[+slide_div_id]]').nivoSlider();
+    $('#[[+slide_div_id]]').nivoSlider({
+        effect: 'random', // Specify sets like: 'fold,fade,sliceDown'
+        slices: 15, // For slice animations
+        boxCols: 8, // For box animations
+        boxRows: 4, // For box animations
+        animSpeed: 500, // Slide transition speed
+        pauseTime: 3000, // How long each slide will show
+        startSlide: 0, // Set starting Slide (0 index)
+        directionNav: true, // Next & Prev navigation
+        directionNavHide: true, // Only show on hover
+        controlNav: true, // 1,2,3... navigation
+        controlNavThumbs: false, // Use thumbnails for Control Nav
+        controlNavThumbsFromRel: false, // Use image rel for thumbs
+        controlNavThumbsSearch: '.jpg', // Replace this with...
+        controlNavThumbsReplace: '_thumb.jpg', // ...this in thumb Image src
+        keyboardNav: true, // Use left & right arrows
+        pauseOnHover: true, // Stop animation while hovering
+        manualAdvance: false, // Force manual transitions
+        captionOpacity: 0.8, // Universal caption opacity
+        prevText: 'Prev', // Prev directionNav text
+        nextText: 'Next', // Next directionNav text
+        beforeChange: function(){}, // Triggers before a slide transition
+        afterChange: function(){}, // Triggers after a slide transition
+        slideshowEnd: function(){}, // Triggers after all slides have been shown
+        lastSlide: function(){}, // Triggers when last slide is shown
+        afterLoad: function(){} // Triggers when slider has loaded
+   });
 });
 </script>

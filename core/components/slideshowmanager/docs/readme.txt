@@ -1,8 +1,8 @@
 --------------------
 slideshowmanager
 --------------------
-Version: 1.0.0 beta2
-Since: July 14th, 2011
+Version: 1.0.0 pl
+Since: January 4rd, 2012
 Author: Joshua Gulledge <jgulledge19@hotmail.com>
 License: GNU GPLv2 (or later at your option)
 
@@ -11,30 +11,7 @@ the content you would like in your slide.  You can also have many slides shows o
 all managed from the same place.
 
 Install:
-1. Install via the MODX Revolution packagemanagment
-2. Run the [[installSlideshowManager]] snippet one time, this will create the database tables.
-3. Manualy install the CMP:
-    See http://rtfm.modx.com/display/revolution20/Custom+Manager+Pages+Tutorial for more help
-    a. Create Namespace:  System->Namespace
-        Click Create New and then fill exactly for Name: slideshowmanager 
-        and for Path: {core_path}components/slideshowmanager/
-    b. Create the Action
-        System->Actions
-        Right-click slideshowmanager from the list of namespaces and select "Create Action Here".
-        Controller: controllers/index
-        Namespace: yes, use the same namespace: slideshowmanager
-        Check Load Headers
-        Language Topics: slideshowmanager:default
-        Now click save
-    c. Create the Menu Object
-        Right-Click "Components" and choose "Place Action Here"
-        Lexicon Key: slideshowmanager
-        Description: slideshowmanager.desc
-        Action: slideshowmanager.desc - index
-        Save (you can ignore the Icon, Parameters, Handler, and Permissions fields for now)
-4. Refresh your browser and you should see Slideshow Manager under the Components menu.
-5. Create an album(slideshow) before you can add any slides.
-
+- Install via the MODX Revolution packagemanagment
 
 Usage:
 basic options creating a slide show
