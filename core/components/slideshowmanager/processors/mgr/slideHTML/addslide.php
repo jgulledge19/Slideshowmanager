@@ -42,6 +42,7 @@ $require_array = array(
         'description',
         'start_date',
         'sequence',
+        'end_date',
     );
 
 if ($edit_me) {
