@@ -41,6 +41,7 @@ $require_array = array(
         'title', 
         'description',
         'start_date',
+        'end_date',
         'sequence',
     );
 

@@ -1,5 +1,10 @@
 Changelog for slideshowmanager.
 
+SlideshowManager 1.0.1 pl 03/13/2012
+===========================
+ - Set end_date to be a required field
+ - 
+
 SlideshowManager 1.0.0 pl
 ===========================
  - made the auto installer to actually work!

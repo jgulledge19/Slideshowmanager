@@ -1,8 +1,8 @@
 --------------------
 slideshowmanager
 --------------------
-Version: 1.0.0 pl
-Since: January 4rd, 2012
+Version: 1.0.1 pl
+Since: March 13th, 2012
 Author: Joshua Gulledge <jgulledge19@hotmail.com>
 License: GNU GPLv2 (or later at your option)
 
@@ -16,7 +16,7 @@ Install:
 Usage:
 basic options creating a slide show
 <div id="slider-wrapper">
-    [[!jgSlideShow]]
+    [[!jgSlideShow?]]
 </div>
 
 Default slideshow is a JQuery slider NIVO: http://nivo.dev7studios.com/#usage 
