@@ -97,8 +97,8 @@ if( $validate->validate() ) {
             $validate->moveFile('upload_file', $this->cmpController->config['uploadPath'], 
                 'album_'.$album_data['id'].'_slide_'.time() ) );
         $input_data['file_type'] = $validate->fileExt('upload_file');
-        $input_data['file_size'] = filesize($file_data['file']);
-        $file_data['upload_time'] = $input_data['date_time'];
+        $input_data['file_size'] = filesize($input_data['file_path']);
+        //$file_data['upload_time'] = $input_data['date_time'];
     } else {
         unset($input_data['upload_time']);
     }

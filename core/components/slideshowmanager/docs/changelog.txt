@@ -1,5 +1,14 @@
 Changelog for slideshowmanager.
 
+
+SlideshowManager 1.0.4 pl 04/17/2012
+===========================
+ - Fix assets path for JS helper file, affected sites where MODX is in a folder
+ 
+SlideshowManager 1.0.3 pl 04/17/2012
+===========================
+ - Another PHP Notice Warning Fix
+ 
 SlideshowManager 1.0.2 pl 04/16/2012
 ===========================
  - Fix PHP Notice Warning

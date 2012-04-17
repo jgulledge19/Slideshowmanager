@@ -16,7 +16,7 @@ $slide_lexicon = new dataToSmarty();
 $my_lexicon = $slide_lexicon->smartyLexicon($modx->lexicon->fetch('slideshowmanager'));
 $modx->smarty->assign('_lang', $my_lexicon );
 
-$modx->regClientStartupScript('/assets/components/slideshowmanager/slideshowmanager.js');
+$modx->regClientStartupScript(MODX_ASSETS_URL.'/components/slideshowmanager/slideshowmanager.js');
 
 $modx->regClientCSS(MODX_ASSETS_URL.'components/slideshowmanager/css/layout.css');
 $modx->regClientCSS(MODX_ASSETS_URL.'components/slideshowmanager/css/form.css');
