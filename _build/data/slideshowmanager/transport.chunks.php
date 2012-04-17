@@ -59,7 +59,7 @@ $chunks[++$x]= $modx->newObject('modChunk');
 $chunks[$x]->fromArray(array(
     'id' => $x,
     'name' => 'nivo_slideLinkTpl',
-    'description' => 'A slide pane wrapped in an archor',
+    'description' => 'A slide pane wrapped in an anchor',
     'snippet' => file_get_contents($sources['source_core'].'/elements/chunks/nivo/nivo_slideLinkTpl.html'),
     'properties' => '',
 ),'',true,true);

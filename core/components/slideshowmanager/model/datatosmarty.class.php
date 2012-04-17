@@ -238,7 +238,7 @@ class dataToSmarty {
         $lexicon = array();
         // ['namespace']['topic'] = 'value'
         foreach( $my_lexicon as $name => $value ){
-            list($nsp, $tpc) = explode('.', $name,2);
+            @list($nsp, $tpc) = explode('.', $name,2);
             $lexicon[$nsp][$tpc] = $value;
         }
         return $lexicon;

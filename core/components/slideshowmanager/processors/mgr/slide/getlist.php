@@ -5,6 +5,7 @@
  * @package cmp
  * @subpackage processors
  * This file needs to be customized
+ * 
  */
 /* setup default properties */
 $isLimit = !empty($scriptProperties['limit']);
@@ -24,12 +25,13 @@ $query = $modx->getOption('query',$scriptProperties,'');
         'title:LIKE' => '%'.$query.'%'
     ));
 }*/
-// urls 
+// urls
+/* 
 $url_array = array( 
-        'home' => '?a='.$a,
+        //'home' => '?a='.$a,
         'slide_add' => '?a='.$a.'&amp;action=addslide&amp;album_id='.$album_id,
         'slide_edit' => '?a='.$a.'&amp;action=editslide&amp;album_id='.$album_id );
-
+*/
 $query = $modx->newQuery('jgSlideshowSlide');
 $conditions = array('slideshow_album_id' => $album_id );
 switch ($sort_type) {

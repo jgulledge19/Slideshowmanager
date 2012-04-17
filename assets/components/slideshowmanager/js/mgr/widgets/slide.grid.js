@@ -117,7 +117,12 @@ Cmp.grid.slide= function(config) {
             ,dataIndex: 'start_date'
             ,sortable: true
             ,width: 20
-            ,editor: { xtype: 'textfield' }/*
+            //,editor: { xtype: 'textfield' }
+            // http://forums.modx.com/thread/74194/extjs-tips#dis-post-411595
+            // http://jacwright.com/projects/javascript/date_format/
+            ,renderer : Ext.util.Format.dateRenderer('Y-m-d')
+            ,editor: { xtype: 'datefield' }
+            /*
             //,name: 'post_date'
             ,hiddenName: 'post_date'
             ,anchor: '90%'

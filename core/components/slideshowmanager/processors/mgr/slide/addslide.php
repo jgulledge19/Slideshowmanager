@@ -5,7 +5,7 @@
 if ( !isset($edit_me) ){
     $edit_me = false;
 } 
-
+$message = '';
 //$modx->regClientStartupScript($cmpController->config['jsUrl'].'mgr/widgets/'.$cmpController->config['packageName'].'.js');
 //$modx->regClientStartupScript('assets/components/slideshowmanager/slideshowmanager.js');
 /**
