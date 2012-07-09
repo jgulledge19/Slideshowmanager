@@ -28,10 +28,10 @@
  * @subpackage lexicon
  * @language en
  */
+ 
 $_lang['slideshowmanager'] = 'Slideshow Manager';
 $_lang['slideshowmanager.management'] = 'Slideshow Manager';
 $_lang['slideshowmanager.management_desc'] = 'Manage your Slideshows';
-
 
 
 $_lang['slideshowmanager.cmp_title'] = 'Slideshow Manager';
@@ -115,7 +115,9 @@ $_lang['slideshowmanager.slide'] = 'Slides';
 $_lang['slideshowmanager.slide_management_desc'] = 'Manage your Slides for the current Album(Slideshow). ';
 $_lang['slideshowmanager.slide_search'] = 'Search Slides';
 $_lang['slideshowmanager.slide_create'] = 'Create a Slide';
-$_lang['slideshowmanager.slide_create_desc'] =
+$_lang['slideshowmanager.slide_create_image'] = 'Image';
+$_lang['slideshowmanager.slide_update_image'] = 'Current Image';
+$_lang['slideshowmanager.slide_create_desc'] =  'Size limit is in kb, width and height are pixels and Allowed is a comma separated list of file extensions.';
 $_lang['slideshowmanager.slide_update_desc'] =  'Size limit is in kb, width and height are pixels and Allowed is a comma separated list of file extensions.';
 $_lang['slideshowmanager.slide_remove'] = 'Remove Slide';
 $_lang['slideshowmanager.slide_remove_confirm'] = 'Are you sure you wish to remove(delete) this Slide?';
@@ -132,6 +134,7 @@ $_lang['slideshowmanager.slide_sequence'] = 'Sequence';
 $_lang['slideshowmanager.slide_status'] = 'Status';
 $_lang['slideshowmanager.slide_upload_time'] = 'Upload time';
 $_lang['slideshowmanager.slide_file_path'] = 'Image';
+$_lang['slideshowmanager.slide_upload_new_image'] = 'Upload a New Image';
 $_lang['slideshowmanager.slide_file_size'] = 'File size';
 $_lang['slideshowmanager.slide_file_type'] = 'File ext';
 $_lang['slideshowmanager.slide_url'] = 'Url';

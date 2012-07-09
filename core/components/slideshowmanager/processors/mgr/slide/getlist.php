@@ -93,15 +93,29 @@ if ($isLimit) {
 $slides = $modx->getIterator('jgSlideshowSlide',$query);
 // echo 'MY SQL:<br>'.$query->toSQL();
 
+$c = $modx->newQuery('jgSlideshowAlbum');
+$conditions = array('id' => $album_id );
+$c->where($conditions);
+
+$album = $modx->getObject('jgSlideshowAlbum', $c);
+$album_description = $album->get('description');
+$album_file_width = $album->get('file_width');
+$album_file_height = $album->get('file_height');
+
 $slide_str = NULL;
 $list = array();
 foreach ($slides as $slide ) {
-    $array = $slide->toArray();
-    $array['start_date'] = str_replace('00:00:00', '', $array['start_date']);
-    $array['end_date'] = str_replace('00:00:00', '', $array['end_date']); 
+	$array = $slide->toArray();
+	
+	$array['album_description'] = $album_description;
+    $array['album_file_width'] = $album_file_width;
+	$array['album_file_height'] = $album_file_height;
+	
+    $array['start_date'] = trim(str_replace('00:00:00', '', $array['start_date']));
+    $array['end_date'] = trim(str_replace('00:00:00', '', $array['end_date']));
     $array['image_path'] = $slide->get('file_path');//$this->cmpController->config['uploadUrl']
     //$array['image'] = '<img src="/assets/components/slideshowmanager/uploads/'.$this->cmpController->config['uploadUrl'].$slide->get('file_path').'" alt="--Title--" height="100" >';
-    $list[] = $array; 
+    $list[] = $array;
     
 }
 return $this->outputArray($list,$count);
