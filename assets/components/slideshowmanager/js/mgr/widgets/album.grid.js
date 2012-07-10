@@ -26,7 +26,7 @@ Cmp.grid.album = function(config) {
         ,url: Cmp.config.connectorUrl
         ,baseParams: { action: 'mgr/album/getList' }
         ,save_action: 'mgr/album/updateFromGrid'
-        ,fields: ['id','title','description','file_size_limit','file_allowed','file_width','file_height' ]
+        ,fields: ['id','title','description','file_size_limit','file_allowed','file_width','file_height','image_instructions','advanced_instructions','constrain' ]
         ,paging: true
         ,autosave: true
         ,remoteSort: true
@@ -117,32 +117,30 @@ Ext.extend(Cmp.grid.album,MODx.grid.Grid,{
     ,getMenu: function() {
         var m = [{
             text: _('slideshowmanager.album_update')
-            ,handler: this.updateFeed
+            ,handler: this.updateAlbum
         },'-',{
             text: _('slideshowmanager.album_remove')
-            ,handler: this.removeFeed
+            ,handler: this.removeAlbum
         }];
         this.addContextMenuItem(m);
         
         return true;
     }
-    ,updateFeed: function(btn,e) {
+    ,updateAlbum: function(btn,e) {
         console.log('Update');
-        if (!this.updateFeedWindow) {
-            this.updateFeedWindow = MODx.load({
+        if (!this.updateAlbumWindow) {
+            this.updateAlbumWindow = MODx.load({
                 xtype: 'cmp-window-album-update'
                 ,record: this.menu.record
                 ,listeners: {
                     'success': {fn:this.refresh,scope:this}
                 }
             });
-        } else {
-            this.updateFeedWindow.setValues(this.menu.record);
         }
-        this.updateFeedWindow.show(e.target);
+        this.updateAlbumWindow.setValues(this.menu.record);
+        this.updateAlbumWindow.show(e.target);
     }
-
-    ,removeFeed: function() {
+    ,removeAlbum: function() {
         MODx.msg.confirm({
             title: _('slideshowmanager.album_remove')
             ,text: _('slideshowmanager.album_remove_confirm')
@@ -160,7 +158,7 @@ Ext.extend(Cmp.grid.album,MODx.grid.Grid,{
 Ext.reg('cmp-grid-album',Cmp.grid.album);
 
 
-Cmp.window.UpdateFeed = function(config) {
+Cmp.window.updateAlbum = function(config) {
     config = config || {};
     Ext.applyIf(config,{
         title: _('slideshowmanager.album_update')
@@ -168,48 +166,111 @@ Cmp.window.UpdateFeed = function(config) {
         ,baseParams: {
             action: 'mgr/album/update'
         }
-        ,fields: [{ 
-            html: _('slideshowmanager.album_update_desc')+'<br />'
-        },{
-            xtype: 'hidden'
-            ,name: 'id'
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_title')
-            ,name: 'title'
-            ,width: 300
-        },{
-            xtype: 'textarea'
-            ,fieldLabel: _('slideshowmanager.album_description')
-            ,name: 'description'
-            ,width: 300
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_size_limit')
-            ,name: 'file_size_limit'
-            ,width: 100
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_allowed')
-            ,name: 'file_allowed'
-            ,width: 300
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_width')
-            ,name: 'file_width'
-            ,width: 100
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_height')
-            ,name: 'file_height'
-            ,width: 100
-        }
-        ]
+        ,id: this.ident
+       ,fields: [{
+            /*xtype: 'modx-tabs'
+            ,bodyStyle: 'padding: 10px'
+            ,border: true
+            ,fileUpload:true
+            ,deferredRender: false
+            ,forceLayout: true
+            ,defaults: {
+                autoHeight: true
+                ,layout: 'form'
+                ,deferredRender: false
+                ,forceLayout: true
+            }*/
+            xtype: 'modx-tabs'
+            ,bodyStyle: { background: 'transparent' }
+            ,autoHeight: true
+            ,deferredRender: false
+            ,items: [{
+                title: _('slideshowmanager.albumtab_basic')
+                ,layout: 'form'
+                ,cls: 'modx-panel'
+                //
+                ,bodyStyle: { background: 'transparent', padding: '10px' }
+                ,autoHeight: true
+                ,labelWidth: 130
+                ,items:[{ 
+                        html: _('slideshowmanager.album_update_desc')+'<br />'
+                        ,border: false
+                    },{
+                        xtype: 'hidden'
+                        ,name: 'id'
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_title')
+                        ,name: 'title'
+                        ,requried: true
+                        ,width: 300
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_size_limit')
+                        ,name: 'file_size_limit'
+                        ,requried: true
+                        ,width: 100
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_allowed')
+                        ,name: 'file_allowed'
+                        ,requried: true
+                        ,width: 300
+                    },{
+                        boxLabel: 'Yes'
+                        ,xtype: 'checkbox'
+                        ,fieldLabel: _('slideshowmanager.album_constrain_desc')
+                        ,name: 'constrain'
+                        ,inputValue: 1
+                        ,checked: true
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_width')
+                        ,name: 'file_width'
+                        ,requried: true
+                        ,width: 100
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_height')
+                        ,name: 'file_height'
+                        ,requried: true
+                        ,width: 100
+                    }
+                ]
+            },{ 
+                title: _('slideshowmanager.albumtab_instructions')
+                ,layout: 'form'
+                ,cls: 'modx-panel'
+                ,items:[{
+                        //id: 'album_description'
+                        html: _('slideshowmanager.album_instructions_desc')
+                        ,border: false
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.album_description')
+                        ,name: 'description'
+                        ,value: ''
+                        ,requried: true
+                        ,width: 300 
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.album_image_instructions')
+                        ,name: 'image_instructions'
+                        ,width: 300
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.album_advanced_instructions')
+                        ,name: 'advanced_instructions'
+                        ,width: 300
+                    }
+                ]
+            }] // end outer items/tabs
+        }]// end fields
     });
-    Cmp.window.UpdateFeed.superclass.constructor.call(this,config);
+    Cmp.window.updateAlbum.superclass.constructor.call(this,config);
 };
-Ext.extend(Cmp.window.UpdateFeed,MODx.Window);
-Ext.reg('cmp-window-album-update',Cmp.window.UpdateFeed);
+Ext.extend(Cmp.window.updateAlbum,MODx.Window);
+Ext.reg('cmp-window-album-update',Cmp.window.updateAlbum);
 
 Cmp.window.CreateAlbum = function(config) {
     config = config || {};
@@ -219,53 +280,106 @@ Cmp.window.CreateAlbum = function(config) {
         ,baseParams: {
             action: 'mgr/album/create'
         }
-        ,fields: [
-        { 
-            html: _('slideshowmanager.album_create_desc')+'<br />'
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_title')
-            ,name: 'title'
-            ,value: ''
-            ,requried: true
-            ,width: 300
-        },{
-            xtype: 'textarea'
-            ,fieldLabel: _('slideshowmanager.album_description')
-            ,name: 'description'
-            ,value: ''
-            ,requried: true
-            ,width: 300 
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_size_limit')
-            ,name: 'file_size_limit'
-            ,value: '150'
-            ,requried: true
-            ,width: 100
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_allowed')
-            ,name: 'file_allowed'
-            ,value: 'jpg,jpeg,png'
-            ,requried: true
-            ,width: 300
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_width')
-            ,name: 'file_width'
-            ,value: '500'
-            ,requried: true
-            ,width: 100
-        },{
-            xtype: 'textfield'
-            ,fieldLabel: _('slideshowmanager.album_file_height')
-            ,name: 'file_height'
-            ,value: '300'
-            ,requried: true
-            ,width: 100
-        }
-        ]
+        ,fields: [{
+            xtype: 'modx-tabs'
+            ,bodyStyle: 'padding: 10px'
+            ,border: true
+            ,fileUpload:true
+            ,deferredRender: false
+            ,forceLayout: true
+            ,defaults: {
+                autoHeight: true
+                ,layout: 'form'
+                ,deferredRender: false
+                ,forceLayout: true
+            }
+            ,items: [{
+                title: _('slideshowmanager.albumtab_basic')
+                ,layout: 'form'
+                ,cls: 'modx-panel'
+                ,items:[{
+                    xtype: 'hidden'
+                    ,name: 'id'
+                    },{
+                        //id: 'album_description'
+                        html: _('slideshowmanager.album_create_desc')
+                        ,border: false
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_title')
+                        ,name: 'title'
+                        ,value: ''
+                        ,requried: true
+                        ,width: 300
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_size_limit')
+                        ,name: 'file_size_limit'
+                        ,value: '150'
+                        ,requried: true
+                        ,width: 100
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_allowed')
+                        ,name: 'file_allowed'
+                        ,value: 'jpg,jpeg,png'
+                        ,requried: true
+                        ,width: 300
+                    },{
+                        boxLabel: 'Yes'
+                        ,xtype: 'checkbox'
+                        ,fieldLabel: _('slideshowmanager.album_constrain_desc')
+                        ,name: 'constrain'
+                        ,inputValue: 1
+                        ,checked: true
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_width')
+                        ,name: 'file_width'
+                        ,value: '500'
+                        ,requried: true
+                        ,width: 100
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.album_file_height')
+                        ,name: 'file_height'
+                        ,value: '300'
+                        ,requried: true
+                        ,width: 100
+                    }
+                ]
+            },{ 
+                title: _('slideshowmanager.albumtab_instructions')
+                ,layout: 'form'
+                ,cls: 'modx-panel'
+                ,items:[{
+                    xtype: 'hidden'
+                    ,name: 'id'
+                    },{
+                        //id: 'album_description'
+                        html: _('slideshowmanager.album_instructions_desc')
+                        ,border: false
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.album_description')
+                        ,name: 'description'
+                        ,value: ''
+                        ,requried: true
+                        ,width: 300 
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.album_image_instructions')
+                        ,name: 'image_instructions'
+                        ,width: 300
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.album_advanced_instructions')
+                        ,name: 'advanced_instructions'
+                        ,width: 300
+                    }
+                ]
+            }] // end outer items/tabs
+        }]// end fields
     });
     Cmp.window.CreateAlbum.superclass.constructor.call(this,config);
 };

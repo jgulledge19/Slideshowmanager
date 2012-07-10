@@ -67,6 +67,8 @@ if ( is_object($slideAlbum) ) {
     // assign the form data to the template
     $modx->smarty->assign($smartyData->buildSmarty('_album', true));
     $modx->smarty->assign(array('a' => $a ) );
+} else {
+    // current
 }
 
 // urls

@@ -48,6 +48,7 @@ $_lang['slideshowmanager.slide_add'] = 'Add Slide';
 $_lang['slideshowmanager.slide_edit'] = 'Edit Slide';
 $_lang['slideshowmanager.slide_delete'] = 'Delete Slide';
 // form elements
+/*
 $_lang['slideshowmanager.button_add'] = 'Create';
 $_lang['slideshowmanager.button_edit'] = 'Save';
 $_lang['slideshowmanager.button_delete'] = 'Delete';
@@ -59,7 +60,9 @@ $_lang['slideshowmanager.label_file_width'] = 'width in pixels';
 $_lang['slideshowmanager.label_file_height'] = 'height in pixels';
 $_lang['slideshowmanager.label_title'] = 'Title';
 $_lang['slideshowmanager.label_description'] = 'Description';
+*/
 // slide only:
+/*
 $_lang['slideshowmanager.legend_slide_create'] = 'Create a new slide';
 $_lang['slideshowmanager.legend_slide_edit'] = 'Edit slide';
 $_lang['slideshowmanager.label_url'] = 'URL - link slide to a page';
@@ -77,7 +80,14 @@ $_lang['slideshowmanager.label_slide_status_replace'] = 'Replace Slide';
 $_lang['slideshowmanager.label_slide_status_tbd'] = 'TBD'; 
 $_lang['slideshowmanager.label_slide_status_archive'] = 'Archive';
 $_lang['slideshowmanager.label_slide_status_delete'] = 'Delete';
+*/
 $_lang['slideshowmanager.slide_sequence'] = 'Sequence';
+// slide form tabs:
+$_lang['slideshowmanager.slidetab_basic'] = 'Basic Details';
+$_lang['slideshowmanager.slidetab_advanced'] = 'Advanced';
+$_lang['slideshowmanager.slidetab_image'] = 'Upload Image';
+$_lang['slideshowmanager.slidetab_update_image'] = 'Current Image';
+
 // slide sort form
 $_lang['slideshowmanager.legend_sort'] = 'Sort';
 $_lang['slideshowmanager.label_sort_type_current'] = 'Live/Active';
@@ -85,6 +95,13 @@ $_lang['slideshowmanager.label_sort_type_future'] = 'Scheduled';
 $_lang['slideshowmanager.label_sort_type_tbd'] = 'TBD';
 $_lang['slideshowmanager.label_sort_type_archive'] = 'Archive';
 $_lang['slideshowmanager.button_sort'] = 'Sort';
+
+// album form tabs
+$_lang['slideshowmanager.albumtab_basic'] = 'Basic Details';
+$_lang['slideshowmanager.albumtab_instructions'] = 'Desription/Instructions';
+$_lang['slideshowmanager.album_instructions_desc'] = 'Fill in a basic description';
+$_lang['slideshowmanager.album_image_instructions'] = 'Fill in instructions for how you want the uploaded images to look or the desired size.';
+$_lang['slideshowmanager.album_advanced_instructions'] = 'Fill in instructions for the Advanced tab for the slides if you are using these options.';
 
 // new 7/11/11 - for ExtJs
 $_lang['slideshowmanager.album'] = 'Album';
@@ -101,6 +118,8 @@ $_lang['slideshowmanager.album_title'] = 'Title';
 $_lang['slideshowmanager.album_description'] = 'Description';
 $_lang['slideshowmanager.album_file_size_limit'] = 'Size Limit';
 $_lang['slideshowmanager.album_file_allowed'] = 'Allowed';
+$_lang['slideshowmanager.album_constrain'] = 'Constrain';
+$_lang['slideshowmanager.album_constrain_desc'] = 'Would you like to force(constrain) the image to fit within the width and height?';
 $_lang['slideshowmanager.album_file_width'] = 'Width';
 $_lang['slideshowmanager.album_file_height'] = 'Height';
 
@@ -115,8 +134,6 @@ $_lang['slideshowmanager.slide'] = 'Slides';
 $_lang['slideshowmanager.slide_management_desc'] = 'Manage your Slides for the current Album(Slideshow). ';
 $_lang['slideshowmanager.slide_search'] = 'Search Slides';
 $_lang['slideshowmanager.slide_create'] = 'Create a Slide';
-$_lang['slideshowmanager.slide_create_image'] = 'Image';
-$_lang['slideshowmanager.slide_update_image'] = 'Current Image';
 $_lang['slideshowmanager.slide_create_desc'] =  'Size limit is in kb, width and height are pixels and Allowed is a comma separated list of file extensions.';
 $_lang['slideshowmanager.slide_update_desc'] =  'Size limit is in kb, width and height are pixels and Allowed is a comma separated list of file extensions.';
 $_lang['slideshowmanager.slide_remove'] = 'Remove Slide';

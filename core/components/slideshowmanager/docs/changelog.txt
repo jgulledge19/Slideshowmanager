@@ -1,6 +1,20 @@
 Changelog for slideshowmanager.
 
 
+SlideshowManager 1.1 rc 07/10/2012
+===========================
+ - Update UI to be completly native
+ - Set default dates for the create form
+ - Will now auto resize images
+ - Can chose to force a certian size (height and width) or allow any height and width 
+ - Update to latest Nivo player
+ - Add new options:
+    set custom Description, Image Instructions and Advanced instructions for each Album
+    toPlaceholder
+ - Fixed sorting
+ - Fixed #5 with new GUI
+ - Added optional load jQuery #2 if you aready are loading jquery set this to false
+
 SlideshowManager 1.0.4 pl 04/17/2012
 ===========================
  - Fix assets path for JS helper file, affected sites where MODX is in a folder

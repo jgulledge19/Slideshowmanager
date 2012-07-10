@@ -1,24 +1,16 @@
 <?php
 $xpdo_meta_map['jgSlideshowAlbum']= array (
   'package' => 'slideshowmanager',
+  'version' => NULL,
   'table' => 'slideshow_album',
-  'composites' => 
-  array (
-    'Slide' => 
-    array (
-      'class' => 'jgSlideshowSlide',
-      'local' => 'id',
-      'foreign' => 'slideshow_slide_id',
-      'cardinality' => 'many',
-      'owner' => 'local',
-    ),
-  ),
+  'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
     'title' => '',
     'description' => NULL,
     'file_allowed' => '',
     'file_size_limit' => 0,
+    'constrain' => 1,
     'file_width' => 0,
     'file_height' => 0,
     'icon_path' => NULL,
@@ -57,6 +49,15 @@ $xpdo_meta_map['jgSlideshowAlbum']= array (
       'null' => false,
       'default' => 0,
     ),
+    'constrain' => 
+    array (
+      'dbtype' => 'tinyint',
+      'precision' => '3',
+      'attributes' => 'unsigned',
+      'phptype' => 'integer',
+      'null' => false,
+      'default' => 1,
+    ),
     'file_width' => 
     array (
       'dbtype' => 'int',
@@ -81,6 +82,17 @@ $xpdo_meta_map['jgSlideshowAlbum']= array (
       'precision' => '255',
       'phptype' => 'string',
       'null' => false,
+    ),
+  ),
+  'composites' => 
+  array (
+    'Slide' => 
+    array (
+      'class' => 'jgSlideshowSlide',
+      'local' => 'id',
+      'foreign' => 'slideshow_slide_id',
+      'cardinality' => 'many',
+      'owner' => 'local',
     ),
   ),
 );

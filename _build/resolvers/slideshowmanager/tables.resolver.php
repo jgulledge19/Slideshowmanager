@@ -80,17 +80,12 @@ if ($object->xpdo) {
             }
             break;
         case xPDOTransport::ACTION_UPGRADE:
-            /*
-            $modx->exec("ALTER TABLE {$modx->getTableName('ChurchEvents')} 
-                DROP COLUMN `locations`,
-                ADD COLUMN `prominent` SET('Yes','No') DEFAULT 'No' NULL AFTER `web_user_id`,
-                ADD COLUMN `personal_subscribers` TEXT NULL AFTER `contact_phone`,
-                ADD COLUMN `extended` TEXT NULL AFTER `country`,
-                CHANGE `public_desc` `public_desc` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-                CHANGE `notes` `notes` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-                CHANGE `office_notes` `office_notes` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL ,
-                ADD COLUMN `exceptions` TEXT NULL AFTER `days`
-                ");*/
+            // version 1.1 added: 
+            $modx->exec("ALTER TABLE {$modx->getTableName('jsSlideshowAlbum')}
+                ADD COLUMN `constrain` TINYINT DEFAULT '1' NOT NULL AFTER `file_size_limit`,
+                ADD COLUMN `image_instructions` MEDIUMTEXT NULL AFTER `description`,
+                ADD COLUMN `advanced_instructions` MEDIUMTEXT NULL AFTER `image_instructions`");
+                
             break;
     }
 }

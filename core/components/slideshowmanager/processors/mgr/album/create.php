@@ -31,7 +31,9 @@ if ( empty($scriptProperties['file_width']) ) {
 if ( empty($scriptProperties['file_height'])  ) {
     $modx->error->addField('file_height',$modx->lexicon('slideshowmanager.album_err_required'));
 }
-
+if ( empty($scriptProperties['constrain']) ) {
+    $scriptProperties['constrain'] = 0;
+}
 
 if ($modx->error->hasError()) {
     return $modx->error->failure();

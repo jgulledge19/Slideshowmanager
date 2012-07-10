@@ -30,9 +30,13 @@
 		<composite alias="Slide" class="jgSlideshowSlide" local="id" foreign="slideshow_slide_id" cardinality="many" owner="local" />
 		<field key="title" dbtype="varchar" precision="128" phptype="string" null="false" default="" index="index" />
 		<field key="description" dbtype="mediumtext" phptype="string" null="false" />
+		<field key="image_instructions" dbtype="mediumtext" phptype="string" null="false" />
+        <field key="advanced_instructions" dbtype="mediumtext" phptype="string" null="false" />
+        
 		<field key="file_allowed" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
 		<field key="file_size_limit" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
-		<field key="file_width" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
+		<field key="constrain" dbtype="tinyint" precision="3" attributes="unsigned" phptype="integer" null="false" default="1" />
+        <field key="file_width" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
 		<field key="file_height" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="" />
 		<field key="icon_path" dbtype="varchar" precision="255" phptype="string" null="false" />
 	</object>
