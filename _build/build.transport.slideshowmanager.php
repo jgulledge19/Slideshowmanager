@@ -51,8 +51,8 @@
 /* Set package info be sure to set all of these */
 define('PKG_NAME','SlideshowManager');
 define('PKG_NAME_LOWER','slideshowmanager');
-define('PKG_VERSION','1.0.4');
-define('PKG_RELEASE','pl');
+define('PKG_VERSION','1.1.0');
+define('PKG_RELEASE','rc');
 define('PKG_CATEGORY','SlideshowManager');
 
 /* Set package options - you can turn these on one-by-one

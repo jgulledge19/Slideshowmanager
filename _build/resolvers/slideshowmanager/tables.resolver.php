@@ -81,7 +81,7 @@ if ($object->xpdo) {
             break;
         case xPDOTransport::ACTION_UPGRADE:
             // version 1.1 added: 
-            $modx->exec("ALTER TABLE {$modx->getTableName('jsSlideshowAlbum')}
+            $modx->exec("ALTER TABLE {$modx->getTableName('jgSlideshowAlbum')}
                 ADD COLUMN `constrain` TINYINT DEFAULT '1' NOT NULL AFTER `file_size_limit`,
                 ADD COLUMN `image_instructions` MEDIUMTEXT NULL AFTER `description`,
                 ADD COLUMN `advanced_instructions` MEDIUMTEXT NULL AFTER `image_instructions`");
