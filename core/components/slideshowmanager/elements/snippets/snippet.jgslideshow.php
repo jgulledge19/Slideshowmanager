@@ -19,6 +19,8 @@ $slide_pane_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'_s
 $html_caption = $modx->getOption('htmlCaptionTpl', $scriptProperties, $skin.'_htmlCaptionTpl' );
 //$head = $modx->getOption('headTpl', $scriptProperties, $skin.'' );
 
+$loadJQuery = $modx->getOption('loadJQuery', $this->scriptProperties, 'true');
+
 // add package
 $s_path = $modx->getOption('core_path').'components/slideshowmanager/model/';
 $modx->addPackage('slideshowmanager', $s_path);
@@ -77,11 +79,19 @@ if ( is_object($slideAlbum) ) {
     // load the CSS file
     $album_data['slide_div_id'] = $slide_div_id;
     $album_data['slide_count'] = $count;
+    $album_data['loadJQuery'] = $loadJQuery;
     $modx->regClientStartupHTMLBlock($modx->getChunk($head, $album_data));
     
     $album_data['slide_panes'] = $slide_output;
     $album_data['html_caption'] = $html_cap_output;
 }
 $output .= $modx->getChunk($slide_holder, $album_data);
+
+$toPlaceholder = $modx->getOption('toPlaceholder', $scriptProperties, '' );
+if ( !empty($toPlaceholder) ) {
+    $modx->setPlaceholder($toPlaceholder, $output);
+    return '';
+}
+return $output;
 
 return $output;
