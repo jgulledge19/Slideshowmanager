@@ -52,7 +52,7 @@
 define('PKG_NAME','SlideshowManager');
 define('PKG_NAME_LOWER','slideshowmanager');
 define('PKG_VERSION','1.1.0');
-define('PKG_RELEASE','rc3');
+define('PKG_RELEASE','pl');
 define('PKG_CATEGORY','SlideshowManager');
 
 /* Set package options - you can turn these on one-by-one

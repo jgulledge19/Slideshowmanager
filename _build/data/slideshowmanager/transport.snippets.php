@@ -48,4 +48,12 @@ $snippets[1]->fromArray(array(
 //$snippets[1]->setProperties($properties);
 //unset($properties);
 
+$snippets[2]= $modx->newObject('modSnippet');
+$snippets[2]->fromArray(array(
+    'id' => 2, // set this in order not the ID for the snippet
+    'name' => 'updateSlideShow',
+    'description' => 'Run this to update the database to 1.1 if you have issues after updating',
+    'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.updateslideshow.php'),
+),'',true,true);
+
 return $snippets;

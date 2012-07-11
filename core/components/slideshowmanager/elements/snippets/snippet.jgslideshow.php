@@ -66,9 +66,9 @@ foreach( $slides as $slide ){
             '.$modx->getChunk($slide_pane_link, $slide_data);
     }
     // create html caption
-    if ( !empty($slide_data['html']) ){
+    //if ( !empty($slide_data['html']) || !empty($slide_data['description']) ){
         $html_cap_output .= $modx->getChunk($html_caption, $slide_data);
-    }
+    //}
     
 }
 // get the Album data and merge with slides and caption
