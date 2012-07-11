@@ -1,6 +1,6 @@
 Changelog for slideshowmanager.
 
-SlideshowManager 1.1 rc2 coming...
+SlideshowManager 1.1 rc2 7/11/2012
 ===========================
  - Added optional load jQuery #2 if you aready are loading jquery set this to false
  - toPlaceholder

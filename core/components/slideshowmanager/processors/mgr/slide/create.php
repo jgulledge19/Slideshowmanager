@@ -71,7 +71,8 @@ if( isset($_FILES['upload_file']['tmp_name']) && strlen($_FILES['upload_file']['
             $file_allowed, 
             $album_data['file_width'], 
             $album_data['file_height'], 
-            $jgSlideshow->config['uploadPath'].'tmp/' 
+            $jgSlideshow->config['uploadPath'].'tmp/',
+            $album_data['constrain']
         );
     
     if ( $uploader->checkFile('upload_file') ) {

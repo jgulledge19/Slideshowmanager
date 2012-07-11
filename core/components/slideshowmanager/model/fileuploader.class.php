@@ -114,15 +114,19 @@ class fileUploader{
             }
         }
         // check for the image width and height
-        if ( $this->allow_file_types[$file]['width'] > 0 && $this->allow_file_types[$file]['height'] > 0 ) {
-            // move file to tmp
-            list($width, $height) = getimagesize($_FILES[$file]['tmp_name']);
-            // width
-            // height
-            // echo 'W: '.$width.' - '.$this->allow_file_types[$file]['width'].' H: '.$height.' - '.$this->allow_file_types[$file]['height'];
-            if ( $width != $this->allow_file_types[$file]['width'] || $height != $this->allow_file_types[$file]['height']) {
-                $this->error_array[$file] = 'Incorrect file width or height';
-                return FALSE;
+        if ( $this->allow_file_types[$file]['constrain'] ){
+            if ( $this->allow_file_types[$file]['width'] > 0 && $this->allow_file_types[$file]['height'] > 0 ) {
+                // move file to tmp
+                list($width, $height) = getimagesize($_FILES[$file]['tmp_name']);
+                // width
+                // height
+                // echo 'W: '.$width.' - '.$this->allow_file_types[$file]['width'].' H: '.$height.' - '.$this->allow_file_types[$file]['height'];
+                if ( $width != $this->allow_file_types[$file]['width'] || $height != $this->allow_file_types[$file]['height']) {
+                    //$this->error_array[$file] = 'Incorrect file width or height';
+                    //return FALSE;
+                    // resize image:
+                    $this->allow_file_types[$file]['runConstrain'] = true;
+                }
             }
         }
         $this->validate = TRUE;
@@ -130,15 +134,23 @@ class fileUploader{
     }
     /**
      * Set file rules for the check function
+     * @param (String) $file - the upload filename - name of the html element 
+     * @param (Int) $size_limit - in KB
+     * @param (Array) $type_array - the allowed file extensions
+     * @param (Int) $width - the width of an image
+     * @param (Int) $height - the height of an image
+     * @param (String) $tmp_directory - the path of a temp directory
+     * @param (Boolean) $constrain - if true it will make image the set size
      * 
      * @return void()
      */
-    public function setFileRules($file, $size_limit, $type_array, $width=0, $height=0, $tmp_directory='' ) {
-        $this->allow_file_types[$file]['size'] = $size_limit;// in bytes
+    public function setFileRules($file, $size_limit, $type_array, $width=0, $height=0, $tmp_directory='',$constrain=TRUE ) {
+        $this->allow_file_types[$file]['size'] = $size_limit;// in kilobytes
         $this->allow_file_types[$file]['allow'] = $type_array;
         $this->allow_file_types[$file]['width'] = $width;
         $this->allow_file_types[$file]['height'] = $height;
         $this->allow_file_types[$file]['tmp_dir'] = $tmp_directory;
+        $this->allow_file_types[$file]['constrain'] = (boolean) $constrain;
     }
     /**
      * Move the file to the deseired locaiton
@@ -149,6 +161,10 @@ class fileUploader{
             $org_file = $_FILES[$file]['tmp_name'];
             $new_file = $destination.$new_name.'.'.$this->allow_file_types[$file]['ext'];
             if ( move_uploaded_file ($org_file, $new_file)) {
+                // constrain image?
+                if ( isset($this->allow_file_types[$file]['runConstrain']) && $this->allow_file_types[$file]['runConstrain'] ) {
+                    $new_file = $this->_constrainImage($new_file, $file);
+                }
                 return $new_file;
             }
         }
@@ -227,5 +243,113 @@ class fileUploader{
         }
         return false;
     }
+    
+    ///////////////////////////////////////////////////////////////
+    // RESIZE Stuff:
+    /**
+     * 1. if propution just resize
+     * 2. if not proportional then resize to the largest side h or w
+     *      then fill in remainder with black
+     * @param (string) $image - the image path & name
+     * @param (string) $file - the file name
+     */
+    protected function _constrainImage($image, $file) {
+        // help: http://www.plus2net.com/php_tutorial/gd-border.php
+        $ext = explode(".",$image);
+        $ext = strtolower(end($ext));
+        
+        $canvas_width = $this->allow_file_types[$file]['width'];
+        $canvas_height = $this->allow_file_types[$file]['height'];
+        
+        // resize image:
+        $image = $this->_resize($image, $canvas_height, $canvas_width);
+        
+        //return $image;
+        list($width, $height) = getimagesize($image);
+        
+        if ($ext == "jpg") {
+            $im = imagecreatefromjpeg($image);
+        } else if ($ext == "gif") {
+            $im = imagecreatefromgif ($image);
+        } else if ($ext == "png") {
+            $im = imagecreatefrompng ($image);
+        }
+        
+        /**
+         * Create an image (canvas) that is the size we want that will be all white
+        */
+        $canvas = imagecreatetruecolor($canvas_width,$canvas_height);
+        
+        $canvas_color = imagecolorallocate($canvas, 255, 255, 255);// white
+        imagefilledrectangle($canvas, 0, 0, $canvas_width, $canvas_height, $canvas_color);
+        // $difference_x = ($);
+        $offset_x = 0;
+        if ( $canvas_width > $width ) {
+            $offset_x = ($canvas_width - $width )/2;
+        }
+        $offset_y = 0;
+        if ( $canvas_height > $height ) {
+            $offset_y = ($canvas_height - $height )/2;
+        }
+        // Finally let us create the new image by resizing the image
+        imagecopyresized($canvas, $im, $offset_x, $offset_y, 0, 0, $width, $height, $width, $height);
+        
+        if ($ext == "jpg" || $ext == "jpeg") {
+            imagejpeg($canvas, $image);
+        } else if ($ext == "gif") {
+            imagegif ($canvas, $image);
+        } else if ($ext == "png") {
+            imagepng ($canvas, $image,0);
+        }
+        return $image;
+    }
+    
+    
+    /**
+     * Resize the image.
+     * @param (String) $image - the path and name
+     * @param (Int) $newHeight
+     * @param (Int) $newWidth
+     * @return (boolean)
+     */
+    protected function _resize ($image, $newHeight, $newWidth) {
+        $ext = explode(".",$image);
+        $ext = strtolower(end($ext));
+        list($width, $height) = getimagesize($image);
+        
+        $ratio = $width/$height; // 500/300 = 1.5
+        $new_ratio = $newWidth/$newHeight; // 600/300 = 2
+        // end result = X/300
+        if ( $new_ratio == $ratio ) {
+            // just resample:
+        } else if ($new_ratio > $ratio){ // height is the biggest
+            $newWidth = $newHeight*$ratio;
+        } else if ($new_ratio < $ratio) { // width is the biggest
+            $newHeight = $newWidth*$ratio;
+        }
+        
+        $normal  = imagecreatetruecolor($newWidth, $newHeight);
+        if ($ext == "jpg") {
+            $src = imagecreatefromjpeg($image);
+        } else if ($ext == "gif") {
+            $src = imagecreatefromgif ($image);
+        } else if ($ext == "png") {
+            $src = imagecreatefrompng ($image);
+        }
+        //$this->modx->log(modX::LOG_LEVEL_ERROR,'[fileUploader()->_resize()] H: '.$height.' W: '.$width.' NH: '. $newHeight.' NW: '. $newWidth );
+        $pre = $newWidth.'x'.$newHeight.'_';
+        if ( imagecopyresampled($normal, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height)){
+            //$this->info .= '<div>image was resized and saved.</div>';
+        }   
+        if ($ext == "jpg" || $ext == "jpeg") {
+            imagejpeg($normal, $image);
+        } else if ($ext == "gif") {
+            imagegif ($normal, $image);
+        } else if ($ext == "png") {
+            imagepng ($normal, $image,0);
+        }
+        return $image;
+    }
+    
 } // END
 ?>
