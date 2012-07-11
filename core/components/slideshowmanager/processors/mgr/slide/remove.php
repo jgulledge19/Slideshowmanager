@@ -13,7 +13,10 @@ if (empty($slide)) {
     return $modx->error->failure($modx->lexicon('slideshowmanager.slide_err_notfound'));
 }
 
-$slide_file = $this->cmpController->config['uploadPath'].$slide->get('file_path');
+require_once MODX_CORE_PATH.'components/slideshowmanager/model/slideshowmanager/jgslideshow.class.php';
+$jgSlideshow = new jgSlideshow($modx);
+
+$slide_file = $jgSlideshow->config['uploadPath'].$slide->get('file_path');
 $album_id = $slide->get('slideshow_album_id');
 
 /* remove */

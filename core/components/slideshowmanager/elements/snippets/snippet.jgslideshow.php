@@ -19,7 +19,7 @@ $slide_pane_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'_s
 $html_caption = $modx->getOption('htmlCaptionTpl', $scriptProperties, $skin.'_htmlCaptionTpl' );
 //$head = $modx->getOption('headTpl', $scriptProperties, $skin.'' );
 
-$loadJQuery = $modx->getOption('loadJQuery', $this->scriptProperties, 'true');
+$loadJQuery = $modx->getOption('loadJQuery', $scriptProperties, 'true');
 
 // add package
 $s_path = $modx->getOption('core_path').'components/slideshowmanager/model/';

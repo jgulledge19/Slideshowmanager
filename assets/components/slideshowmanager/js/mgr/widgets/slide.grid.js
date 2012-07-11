@@ -310,7 +310,7 @@ Ext.extend(Cmp.grid.slide,MODx.grid.Grid,{
             ,handler: this.updateSlide
         },'-',{
             text: _('slideshowmanager.slide_remove')
-            ,handler: this.Slide
+            ,handler: this.removeSlide
         }];
         this.addContextMenuItem(m);
         
@@ -346,6 +346,7 @@ Ext.extend(Cmp.grid.slide,MODx.grid.Grid,{
             });
         }
         //console.log(this.menu.record);
+        this.menu.record.upload_file = '';
         this.updateSlideWindow.setValues(this.menu.record);
         
         this.updateSlideWindow.show(e.target);
