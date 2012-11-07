@@ -1,5 +1,9 @@
 Changelog for slideshowmanager.
 
+SlideshowManager 1.1.1 pl 11/7/2012
+===========================
+- Fixed default album install issue #1
+
 SlideshowManager 1.1 pl 7/11/2012
 ===========================
  - Added updateSlideshow snippet, only needed if you have issues after updating

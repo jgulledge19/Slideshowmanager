@@ -1,7 +1,7 @@
 --------------------
 slideshowmanager
 --------------------
-Version: 1.1.0 pl
+Version: 1.1.1 pl
 Since: July 11th, 2012
 Author: Joshua Gulledge <jgulledge19@hotmail.com>
 License: GNU GPLv2 (or later at your option)

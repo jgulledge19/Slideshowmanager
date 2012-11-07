@@ -49,7 +49,8 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                     'file_size_limit' => '200',
                     'file_width' => '600',
                     'file_height' => '400',
-                    'icon_path' => ''
+                    'icon_path' => '',
+                    'image_instructions' => 'Images should be 600 px wide by 400 px tall.'
                     ));
                 if ($album->save() == false) {
                     $modx->log(xPDO::LOG_LEVEL_ERROR,'ERROR adding default data to table: jgSlideshowAlbum ');
