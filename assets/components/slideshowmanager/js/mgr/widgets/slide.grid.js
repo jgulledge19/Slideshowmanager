@@ -106,6 +106,7 @@ Cmp.grid.slide= function(config) {
         },{
             header: _('slideshowmanager.slide_title')
             ,dataIndex: 'title'
+            ,maxLength: 100
             ,sortable: true
             ,width: 45
             ,editor: { xtype: 'textfield' }
@@ -129,12 +130,18 @@ Cmp.grid.slide= function(config) {
             header: _('slideshowmanager.slide_start_date')
             ,dataIndex: 'start_date'
             ,sortable: true
-            ,width: 20
+            ,width: 60
             //,editor: { xtype: 'textfield' }
             // http://forums.modx.com/thread/74194/extjs-tips#dis-post-411595
             // http://jacwright.com/projects/javascript/date_format/
-            ,renderer : Ext.util.Format.dateRenderer('Y-m-d')
-            ,editor: { xtype: 'datefield' }
+            ,format: MODx.config.manager_date_format
+            ,dateFormat: MODx.config.manager_date_format
+            ,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+            ,editor: { 
+                xtype: 'datefield'
+                ,format: MODx.config.manager_date_format
+            } // datefield
+            ,xtype: 'datecolumn'
             /*
             //,name: 'post_date'
             ,hiddenName: 'post_date'
@@ -147,9 +154,15 @@ Cmp.grid.slide= function(config) {
             header: _('slideshowmanager.slide_end_date')
             ,dataIndex: 'end_date'
             ,sortable: true
-            ,width: 20
-            ,renderer : Ext.util.Format.dateRenderer('Y-m-d')
-            ,editor: { xtype: 'datefield' }
+            ,width: 60
+            ,format: MODx.config.manager_date_format
+            ,dateFormat: MODx.config.manager_date_format
+            ,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+            ,editor: { 
+                xtype: 'datefield'
+                ,format: MODx.config.manager_date_format
+            } // datefield
+            ,xtype: 'datecolumn'
         },{
             header: _('slideshowmanager.slide_status')
             ,dataIndex: 'slide_status'
@@ -253,7 +266,10 @@ function makeFullDate(myDate) {
     if ( day < 10 ) {
         day = '0' + day;
     }
-    return myDate.getFullYear() + '-' + mon + '-' + day;
+    // Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+    //var iso_date = Date.parseDate("2008-01-11 22:00:00", "Y-m-d H:i:s");
+    return myDate.format(MODx.config.manager_date_format);
+    //return myDate.getFullYear() + '-' + mon + '-' + day;
 }
 
 Ext.onReady(function(){
@@ -443,6 +459,7 @@ Cmp.window.UpdateSlide = function(config) {
 		            xtype: 'textfield'
 		            ,fieldLabel: _('slideshowmanager.slide_title')
 		            ,name: 'title'
+                    ,maxLength: 100
 		            ,width: 400
 		        },{
                     xtype: 'textarea'
@@ -452,6 +469,7 @@ Cmp.window.UpdateSlide = function(config) {
                 },{
                     xtype: 'textfield'
                     ,fieldLabel: _('slideshowmanager.slide_url')
+                    ,maxLength: 255
                     ,name: 'url'
                     ,width: 400
                 },{
@@ -459,15 +477,17 @@ Cmp.window.UpdateSlide = function(config) {
 		            ,fieldLabel: _('slideshowmanager.slide_start_date')
 		            ,name: 'start_date'
 		            ,width: 150
-		            ,format: 'Y-m-d'
-		            ,altFormats: 'Y-m-d'
+		            //,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+		            ,format: MODx.config.manager_date_format
+		            //,altFormats: MODx.config.manager_date_format
 		        },{
 		            xtype: 'datefield'
 		            ,fieldLabel: _('slideshowmanager.slide_end_date')
 		            ,name: 'end_date'
 		            ,width: 150
-		            ,format: 'Y-m-d'
-		            ,altFormats: 'Y-m-d'
+                    //,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+                    ,format: MODx.config.manager_date_format
+                    //,altFormats: MODx.config.manager_date_format
 		        },{
 		            xtype: 'textfield'
 		            ,fieldLabel: _('slideshowmanager.slide_sequence')
@@ -577,6 +597,7 @@ Cmp.window.CreateSlide = function(config) {
 	                },{
 			            xtype: 'textfield'
 			            ,fieldLabel: _('slideshowmanager.slide_title')
+                        ,maxLength: 100
 			            ,name: 'title'
 			            ,width: 400
 			        },{
@@ -587,6 +608,7 @@ Cmp.window.CreateSlide = function(config) {
                     },{
                         xtype: 'textfield'
                         ,fieldLabel: _('slideshowmanager.slide_url')
+                        ,maxLength: 255
                         ,name: 'url'
                         ,width: 400
                     },{
@@ -594,16 +616,22 @@ Cmp.window.CreateSlide = function(config) {
 			            ,fieldLabel: _('slideshowmanager.slide_start_date')
 			            ,name: 'start_date'
 			            ,inputValue: slideToday
-                        ,format: 'Y-m-d'
-                        ,altFormats: 'Y-m-d'
+                    ,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+                    ,format: MODx.config.manager_date_format
+                    //,altFormats: MODx.config.manager_date_format
+                    
+                    ,editor: { xtype: 'datefield' } // datefield
+                    //,xtype: 'datecolumn'
+                    
 			            ,width: 150
 			        },{
 			            xtype: 'datefield'
 			            ,fieldLabel: _('slideshowmanager.slide_end_date')
 			            ,name: 'end_date'
 			            ,inputValue: slideEnd
-                        ,format: 'Y-m-d'
-                        ,altFormats: 'Y-m-d'
+                    ,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+                    ,format: MODx.config.manager_date_format
+                    //,altFormats: MODx.config.manager_date_format
 			            ,width: 150
 			        },{
 			            xtype: 'textfield'

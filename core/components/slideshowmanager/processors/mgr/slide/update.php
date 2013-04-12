@@ -36,6 +36,16 @@ if ($modx->error->hasError()) {
 
 /* set fields */
 $scriptProperties['slide_status'] = strtolower($scriptProperties['slide_status']);
+if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+    $sdate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $scriptProperties['start_date']);
+    $scriptProperties['start_date'] = $sdate->format('Y-m-d');
+    $edate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $scriptProperties['end_date']);
+    $scriptProperties['end_date'] = $edate->format('Y-m-d');
+} else {
+    $scriptProperties['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
+    $scriptProperties['end_date'] = date('Y-m-d', strtotime( $scriptProperties['end_date']));
+}
+
 $slide->fromArray($scriptProperties);
 
 

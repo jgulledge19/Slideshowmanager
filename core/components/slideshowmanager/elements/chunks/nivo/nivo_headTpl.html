@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="[[++site_url]]assets/components/slideshowmanager/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="[[++assets_url]]/components/slideshowmanager/nivo-slider/nivo-slider.css" type="text/css" media="screen" />
 <style type="text/css">
 #slider-wrapper {
     width:[[+file_width]]px;
@@ -9,7 +9,7 @@
   position:relative;
     width:[[+file_width]]px;
     height:[[+file_height]]px;
-  background:url([[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/images/loading.gif) no-repeat 50% 50%;
+  background:url([[++assets_url]]/components/slideshowmanager/nivo-slider/demo/images/loading.gif) no-repeat 50% 50%;
 }
 #slider img {
   position:absolute;
@@ -30,7 +30,7 @@
   display:block;
   width:22px;
   height:22px;
-  background:url([[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/images/bullets.png) no-repeat;
+  background:url([[++assets_url]]/components/slideshowmanager/nivo-slider/demo/images/bullets.png) no-repeat;
   text-indent:-9999px;
   border:0;
   margin-right:3px;
@@ -44,7 +44,7 @@
   display:block;
   width:30px;
   height:30px;
-  background:url([[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/images/arrows.png) no-repeat;
+  background:url([[++assets_url]]/components/slideshowmanager/nivo-slider/demo/images/arrows.png) no-repeat;
   text-indent:-9999px;
   border:0;
 }
@@ -66,9 +66,9 @@ a.nivo-prevNav {
 }
 </style>
 <!-- jQuery -->
-[[+loadJQuery:equals=`true`:then=`<script type="text/javascript" src="[[++site_url]]assets/components/slideshowmanager/nivo-slider/demo/scripts/jquery-1.7.2.min.js"></script>`:else=``]]
+[[+loadJQuery:equals=`true`:then=`<script type="text/javascript" src="[[++assets_url]]/components/slideshowmanager/nivo-slider/demo/scripts/jquery-1.7.2.min.js"></script>`:else=``]]
 
-<script type="text/javascript" src="[[++site_url]]assets/components/slideshowmanager/nivo-slider/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript" src="[[++assets_url]]/components/slideshowmanager/nivo-slider/jquery.nivo.slider.pack.js"></script>
 <script type="text/javascript">
 $(window).load(function() {
     $('#[[+slide_div_id]]').nivoSlider({

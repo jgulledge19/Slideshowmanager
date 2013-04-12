@@ -1,5 +1,13 @@
 Changelog for slideshowmanager.
 
+SlideshowManager 1.1.2 pl 4/12/2013
+===========================
+ - Fixed #9
+ - updated Nivo Slider to 3.2
+ - Fixed install issue
+ - Added #10 now used MODX Manager Date format: http://rtfm.modx.com/display/revolution20/manager_date_format, works best for php 5.3+
+ - Fix #11
+
 SlideshowManager 1.1.1 pl 11/7/2012
 ===========================
  - Fixed default album install issue #1

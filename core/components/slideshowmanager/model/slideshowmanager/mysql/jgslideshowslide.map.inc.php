@@ -1,7 +1,7 @@
 <?php
 $xpdo_meta_map['jgSlideshowSlide']= array (
-  'package' => 'slideshowmanager',
-  'version' => NULL,
+  'package' => 'slideshowManager',
+  'version' => '1.1',
   'table' => 'slideshow_slide',
   'extends' => 'xPDOSimpleObject',
   'fields' => 
@@ -12,14 +12,14 @@ $xpdo_meta_map['jgSlideshowSlide']= array (
     'end_date' => NULL,
     'edit_time' => NULL,
     'sequence' => 0,
-    'slide_status' => 'tbd',
+    'slide_status' => 'TBD',
     'version' => 1,
-    'options' => '',
+    'options' => NULL,
     'url' => '',
     'title' => '',
-    'description' => '',
-    'notes' => '',
-    'html' => '',
+    'description' => NULL,
+    'notes' => NULL,
+    'html' => NULL,
     'upload_time' => NULL,
     'file_path' => '',
     'file_size' => 0,
@@ -51,14 +51,12 @@ $xpdo_meta_map['jgSlideshowSlide']= array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'index' => 'index',
     ),
     'end_date' => 
     array (
       'dbtype' => 'datetime',
       'phptype' => 'datetime',
       'null' => true,
-      'index' => 'index',
     ),
     'edit_time' => 
     array (
@@ -74,15 +72,14 @@ $xpdo_meta_map['jgSlideshowSlide']= array (
       'phptype' => 'integer',
       'null' => false,
       'default' => 0,
-      'index' => 'index',
     ),
     'slide_status' => 
     array (
       'dbtype' => 'set',
-      'precision' => '\'live\',\'replace\',\'future\',\'archive\',\'deleted\',\'tbd\'',
+      'precision' => '\'live\',\'archive\',\'deleted\',\'restore_point\',\'TBD\'',
       'phptype' => 'string',
       'null' => true,
-      'default' => 'tbd',
+      'default' => 'TBD',
     ),
     'version' => 
     array (
@@ -98,7 +95,6 @@ $xpdo_meta_map['jgSlideshowSlide']= array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
-      'default' => '',
     ),
     'url' => 
     array (
@@ -115,28 +111,24 @@ $xpdo_meta_map['jgSlideshowSlide']= array (
       'phptype' => 'string',
       'null' => false,
       'default' => '',
-      'index' => 'index',
     ),
     'description' => 
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => false,
-      'default' => '',
     ),
     'notes' => 
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
-      'default' => '',
     ),
     'html' => 
     array (
       'dbtype' => 'text',
       'phptype' => 'string',
       'null' => true,
-      'default' => '',
     ),
     'upload_time' => 
     array (
@@ -168,6 +160,59 @@ $xpdo_meta_map['jgSlideshowSlide']= array (
       'phptype' => 'string',
       'null' => true,
       'default' => '',
+    ),
+  ),
+  'indexes' => 
+  array (
+    'slideshow_album_id' => 
+    array (
+      'alias' => 'slideshow_album_id',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'slideshow_album_id' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
+    ),
+    'Search' => 
+    array (
+      'alias' => 'Search',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'slideshow_album_id' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+        'start_date' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => true,
+        ),
+        'end_date' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => true,
+        ),
+        'slide_status' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => true,
+        ),
+      ),
     ),
   ),
   'aggregates' => 

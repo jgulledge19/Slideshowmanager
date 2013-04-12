@@ -38,6 +38,17 @@ require_once MODX_CORE_PATH.'components/slideshowmanager/model/slideshowmanager/
 $jgSlideshow = new jgSlideshow($modx);
 
 $slide = $modx->newObject('jgSlideshowSlide');
+
+// fix date formats: 
+if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+    $sdate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $scriptProperties['start_date']);
+    $scriptProperties['start_date'] = $sdate->format('Y-m-d');
+    $edate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $scriptProperties['end_date']);
+    $scriptProperties['end_date'] = $edate->format('Y-m-d');
+} else {
+    $scriptProperties['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
+    $scriptProperties['end_date'] = date('Y-m-d', strtotime( $scriptProperties['end_date']));
+}
 $slide->fromArray($scriptProperties);
 
 require_once $jgSlideshow->config['modelPath'].'fileuploader.class.php';

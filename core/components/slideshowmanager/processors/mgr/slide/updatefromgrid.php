@@ -34,6 +34,27 @@ $_DATA['version'] += 1;
 /*'id','', '', 'start_date', 'end_date', 
                 'sequence', 'slide_status', '', '', 'url',
                 'title', 'description', '','','','','', '', ''*/
+
+if ( isset($_DATA['start_date']) && !empty($_DATA['start_date']) ) {
+    if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+        $sdate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $_DATA['start_date']);
+        if ( is_object($sdate) ) {
+            $_DATA['start_date'] = $sdate->format('Y-m-d');
+        }
+    } else {
+        $_DATA['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
+    }
+}
+if ( isset($_DATA['end_date']) && !empty($_DATA['end_date']) ) {
+    if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+        $edate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $_DATA['end_date']);
+        if ( is_object($edate) ) {
+            $_DATA['end_date'] = $edate->format('Y-m-d');
+        }
+    } else {
+        $_DATA['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
+    }
+}
 $slide->fromArray($_DATA);
 
 /* save */

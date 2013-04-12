@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model package="slideshowManager" baseClass="xPDOObject" platform="mysql" defaultEngine="MyISAM" version="1.1">
+	<object class="jgSlideshowAlbum" table="slideshow_album" extends="xPDOSimpleObject">
+        <composite alias="Slide" class="jgSlideshowSlide" local="id" foreign="slideshow_slide_id" cardinality="many" owner="local" />
+	    
+		<field key="title" dbtype="varchar" precision="128" phptype="string" null="false" default="" index="index" />
+		<field key="description" dbtype="mediumtext" phptype="string" null="false" />
+		<field key="image_instructions" dbtype="mediumtext" phptype="string" null="true" />
+		<field key="advanced_instructions" dbtype="mediumtext" phptype="string" null="true" />
+		<field key="file_allowed" dbtype="varchar" precision="255" phptype="string" null="false" default="" />
+		<field key="file_size_limit" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="constrain" dbtype="tinyint" precision="4" phptype="integer" null="false" default="1" />
+		<field key="file_width" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="file_height" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="icon_path" dbtype="varchar" precision="255" phptype="string" null="false" />
+
+		<index alias="title" name="title" primary="false" unique="false" type="BTREE" >
+			<column key="title" length="" collation="A" null="false" />
+		</index>
+	</object>
+	<object class="jgSlideshowSlide" table="slideshow_slide" extends="xPDOSimpleObject">
+        <aggregate alias="Album" class="jgSlideshowAlbum" local="slideshow_album_id" foreign="id" cardinality="one" owner="foreign" />
+	    
+		<field key="slideshow_album_id" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="false" default="0" index="index" />
+		<field key="web_user_id" dbtype="int" precision="8" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="start_date" dbtype="datetime" phptype="datetime" null="true" />
+		<field key="end_date" dbtype="datetime" phptype="datetime" null="true" />
+		<field key="edit_time" dbtype="datetime" phptype="datetime" null="false" />
+		<field key="sequence" dbtype="int" precision="8" attributes="unsigned" phptype="integer" null="false" default="0" />
+		<field key="slide_status" dbtype="set" precision="'live','archive','deleted','restore_point','TBD'" phptype="string" null="true" default="TBD" />
+		<field key="version" dbtype="tinyint" precision="3" attributes="unsigned" phptype="integer" null="false" default="1" />
+		<field key="options" dbtype="text" phptype="string" null="true" />
+		<field key="url" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
+		<field key="title" dbtype="varchar" precision="100" phptype="string" null="false" default="" />
+		<field key="description" dbtype="text" phptype="string" null="false" />
+		<field key="notes" dbtype="text" phptype="string" null="true" />
+		<field key="html" dbtype="text" phptype="string" null="true" />
+		<field key="upload_time" dbtype="datetime" phptype="datetime" null="false" />
+		<field key="file_path" dbtype="varchar" precision="255" phptype="string" null="true" default="" />
+		<field key="file_size" dbtype="int" precision="11" attributes="unsigned" phptype="integer" null="true" default="0" />
+		<field key="file_type" dbtype="varchar" precision="32" phptype="string" null="true" default="" />
+
+		<index alias="slideshow_album_id" name="slideshow_album_id" primary="false" unique="false" type="BTREE" >
+			<column key="slideshow_album_id" length="" collation="A" null="false" />
+		</index>
+		<index alias="Search" name="Search" primary="false" unique="false" type="BTREE" >
+			<column key="slideshow_album_id" length="" collation="A" null="false" />
+			<column key="start_date" length="" collation="A" null="true" />
+			<column key="end_date" length="" collation="A" null="true" />
+			<column key="slide_status" length="" collation="A" null="true" />
+		</index>
+	</object>
+</model>

@@ -51,7 +51,7 @@
 /* Set package info be sure to set all of these */
 define('PKG_NAME','SlideshowManager');
 define('PKG_NAME_LOWER','slideshowmanager');
-define('PKG_VERSION','1.1.1');
+define('PKG_VERSION','1.1.2');
 define('PKG_RELEASE','pl');
 define('PKG_CATEGORY','SlideshowManager');
 
@@ -144,10 +144,12 @@ $builder->registerNamespace(PKG_NAME_LOWER,false,true,'{core_path}components/'.P
 
 /* create category  The category is required and will automatically
  * have the name of your package
+ * xPDOVehicle resolver failed: type php (E:/inetpub/wwwroot/modx_test/core/packages/slideshowmanager-1.1.2-pl/modCategory/54ec7bb2bb9eca8b07f113a2ef18b2b4.setupoptions.resolver.resolver)
+Could not resolve vehicle for object of class modCategory; criteria: Array ( [category] => SlideshowManager ) 
  */
 
 $category= $modx->newObject('modCategory');
-$category->set('id',1);
+$category->set('id', 1);
 $category->set('category',PKG_CATEGORY);
 
 /* add snippets */

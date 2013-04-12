@@ -50,7 +50,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                     'file_width' => '600',
                     'file_height' => '400',
                     'icon_path' => '',
-                    'image_instructions' => 'Images should be 600 px wide by 400 px tall.'
+                    'image_instructions' => 'Set the width to 600px and the height to 400px for the image upload'
                     ));
                 if ($album->save() == false) {
                     $modx->log(xPDO::LOG_LEVEL_ERROR,'ERROR adding default data to table: jgSlideshowAlbum ');
@@ -70,7 +70,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                         'end_date' => $end,
                         'sequence' => 1,
                         'title' => 'Slide 1',
-                        'description' => 'MODX Rules!',
+                        'description' => 'MODX Revolution Bend it any way you want.',
                         'notes' => 'Notes...',
                         'html' => '',//'HTML',
                         'upload_time' => $now,
@@ -116,9 +116,9 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 $slide->fromArray($pane);
                 /* save */
                 if ($slide->save() == false) {
-                    $modx->log(xPDO::LOG_LEVEL_ERROR,'ERROR adding default data to table: jgSlideshowSlide ');
+                    $modx->log(xPDO::LOG_LEVEL_ERROR,'ERROR adding default slide data to table: jgSlideshowSlide ');
                 } else {
-                    $modx->log(xPDO::LOG_LEVEL_INFO, 'Added default data to table: jgSlideshowSlide ');
+                    $modx->log(xPDO::LOG_LEVEL_INFO, 'Added default slide to table: jgSlideshowSlide ');
                 }
             }
         }

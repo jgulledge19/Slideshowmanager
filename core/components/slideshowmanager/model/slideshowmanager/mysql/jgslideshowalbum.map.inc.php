@@ -1,13 +1,15 @@
 <?php
 $xpdo_meta_map['jgSlideshowAlbum']= array (
-  'package' => 'slideshowmanager',
-  'version' => NULL,
+  'package' => 'slideshowManager',
+  'version' => '1.1',
   'table' => 'slideshow_album',
   'extends' => 'xPDOSimpleObject',
   'fields' => 
   array (
     'title' => '',
     'description' => NULL,
+    'image_instructions' => NULL,
+    'advanced_instructions' => NULL,
     'file_allowed' => '',
     'file_size_limit' => 0,
     'constrain' => 1,
@@ -32,6 +34,18 @@ $xpdo_meta_map['jgSlideshowAlbum']= array (
       'phptype' => 'string',
       'null' => false,
     ),
+    'image_instructions' => 
+    array (
+      'dbtype' => 'mediumtext',
+      'phptype' => 'string',
+      'null' => true,
+    ),
+    'advanced_instructions' => 
+    array (
+      'dbtype' => 'mediumtext',
+      'phptype' => 'string',
+      'null' => true,
+    ),
     'file_allowed' => 
     array (
       'dbtype' => 'varchar',
@@ -52,8 +66,7 @@ $xpdo_meta_map['jgSlideshowAlbum']= array (
     'constrain' => 
     array (
       'dbtype' => 'tinyint',
-      'precision' => '3',
-      'attributes' => 'unsigned',
+      'precision' => '4',
       'phptype' => 'integer',
       'null' => false,
       'default' => 1,
@@ -82,6 +95,25 @@ $xpdo_meta_map['jgSlideshowAlbum']= array (
       'precision' => '255',
       'phptype' => 'string',
       'null' => false,
+    ),
+  ),
+  'indexes' => 
+  array (
+    'title' => 
+    array (
+      'alias' => 'title',
+      'primary' => false,
+      'unique' => false,
+      'type' => 'BTREE',
+      'columns' => 
+      array (
+        'title' => 
+        array (
+          'length' => '',
+          'collation' => 'A',
+          'null' => false,
+        ),
+      ),
     ),
   ),
   'composites' => 
