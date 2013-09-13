@@ -1,5 +1,13 @@
 Changelog for slideshowmanager.
 
+
+ 
+SlideshowManager 1.1.3 pl  9/13/2013
+===========================
+ - Added #15 ignoreEndTime and ignoreTime
+ - Fixed #13 end date must be greater or equal to start date
+ - Fix sorting in manager for Future and Archive
+
 SlideshowManager 1.1.2 pl 4/12/2013
 ===========================
  - Fixed #9

@@ -46,9 +46,14 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
     $edate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $scriptProperties['end_date']);
     $scriptProperties['end_date'] = $edate->format('Y-m-d');
 } else {
-    $scriptProperties['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
-    $scriptProperties['end_date'] = date('Y-m-d', strtotime( $scriptProperties['end_date']));
+    $scriptProperties['start_date'] = date('Y-m-d', $sdate = strtotime( $scriptProperties['start_date']));
+    $scriptProperties['end_date'] = date('Y-m-d', $edate = strtotime( $scriptProperties['end_date']));
 }
+if ( $sdate > $edate ) {
+    $modx->error->addField('end_date', $modx->lexicon('slideshowmanager.slide_err_end_date'));
+    return $modx->error->failure();
+}
+
 $slide->fromArray($scriptProperties);
 
 require_once $jgSlideshow->config['modelPath'].'fileuploader.class.php';
@@ -111,7 +116,7 @@ if( isset($_FILES['upload_file']['tmp_name']) && strlen($_FILES['upload_file']['
     }
 } else {
     // failed give reason why:
-    print_r($_FILES);
+    //print_r($_FILES);
     $modx->error->addField('upload_file',$modx->lexicon('slideshowmanager.slide_err_required'));
     return $modx->error->failure();
 }

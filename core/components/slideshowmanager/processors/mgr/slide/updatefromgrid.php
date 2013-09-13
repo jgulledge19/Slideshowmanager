@@ -42,7 +42,7 @@ if ( isset($_DATA['start_date']) && !empty($_DATA['start_date']) ) {
             $_DATA['start_date'] = $sdate->format('Y-m-d');
         }
     } else {
-        $_DATA['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
+        $_DATA['start_date'] = date('Y-m-d', $sdate = strtotime( $scriptProperties['start_date']));
     }
 }
 if ( isset($_DATA['end_date']) && !empty($_DATA['end_date']) ) {
@@ -52,8 +52,12 @@ if ( isset($_DATA['end_date']) && !empty($_DATA['end_date']) ) {
             $_DATA['end_date'] = $edate->format('Y-m-d');
         }
     } else {
-        $_DATA['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
+        $_DATA['end_date'] = date('Y-m-d', $edate = strtotime( $scriptProperties['end_date']));
     }
+}
+
+if ( $sdate > $edate ) {
+    return $modx->error->failure($modx->lexicon('slideshowmanager.slide_err_end_date'));
 }
 $slide->fromArray($_DATA);
 

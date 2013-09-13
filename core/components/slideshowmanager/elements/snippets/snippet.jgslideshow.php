@@ -17,6 +17,8 @@ $slide_holder = $modx->getOption('slideHolderTpl', $scriptProperties, $skin.'_sl
 $slide_pane = $modx->getOption('slidePaneTpl', $scriptProperties, $skin.'_slidePaneTpl' );
 $slide_pane_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'_slideLinkTpl' );
 $html_caption = $modx->getOption('htmlCaptionTpl', $scriptProperties, $skin.'_htmlCaptionTpl' );
+$ignore_time = (boolean) $modx->getOption('ignoreTime', $scriptProperties, false );
+$ignore_endtime = (boolean) $modx->getOption('ignoreEndTime', $scriptProperties, false );
 //$head = $modx->getOption('headTpl', $scriptProperties, $skin.'' );
 
 $loadJQuery = $modx->getOption('loadJQuery', $scriptProperties, 'true');
@@ -31,18 +33,24 @@ $output = '';
 // get the slides for the album
 $query = $modx->newQuery('jgSlideshowSlide');
 $today = date("Y-m-d");
-$query->where(array(
+$c = array(
     'slideshow_album_id' => $album_id, 
-    'slide_status' => 'live',
-    'start_date:<=' => $today,
-    'end_date:>=' => $today)
+    'slide_status' => 'live'
     );
+if ( !$ignore_time ) {
+    $c['start_date:<='] = $today;
+    if ( !$ignore_endtime ) {
+        $c['end_date:>='] = $today;
+    }
+}
+
+$query->where($c);
 $query->sortby('sequence','ASC');
 
 //$oldTarget = $modx->setLogTarget('HTML');
 // your code here
 //$c->limit(5);
-$slides = $modx->getCollection('jgSlideshowSlide',$query);
+//$slides = $modx->getCollection('jgSlideshowSlide',$query);
 //$output .= $query->toSQL();
 
 // restore the default logging (to file)
@@ -51,12 +59,19 @@ $slides = $modx->getCollection('jgSlideshowSlide',$query);
 $slide_output = '';
 $html_cap_output = '';
 $count = 0;
-foreach( $slides as $slide ){
+//foreach( $slides as $slide ){
+
+$query->prepare();
+$sql = $query->toSQL();
+$sql = str_replace('`jgSlideshowSlide_', '`', $sql);// not sure why the prefix gets there: `jgSlideshowSlide_
+//error_log($sql);
+$stmt = $modx->query($sql);
+while ( $slide_data = $stmt->fetch(PDO::FETCH_ASSOC) ) {
     ++$count;
     //$output .= '<br>Slide: '.$count;
     // go thourgh each image
-    $slide_data = $slide->toArray();
-    $url = $slide->get('url');
+    //$slide_data = $slide->toArray();
+    $url = $slide_data['url'];//->get('url');
     $slide_data['src'] = $slide_dir.$slide_data['file_path']; 
     if ( empty($url) ) {
         $slide_output .= '
@@ -92,6 +107,4 @@ if ( !empty($toPlaceholder) ) {
     $modx->setPlaceholder($toPlaceholder, $output);
     return '';
 }
-return $output;
-
 return $output;

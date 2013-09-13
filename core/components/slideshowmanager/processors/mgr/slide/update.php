@@ -42,10 +42,14 @@ if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
     $edate = DateTime::createFromFormat($modx->getOption('manager_date_format', null, 'Y-m-d'), $scriptProperties['end_date']);
     $scriptProperties['end_date'] = $edate->format('Y-m-d');
 } else {
-    $scriptProperties['start_date'] = date('Y-m-d', strtotime( $scriptProperties['start_date']));
-    $scriptProperties['end_date'] = date('Y-m-d', strtotime( $scriptProperties['end_date']));
+    $scriptProperties['start_date'] = date('Y-m-d', $sdate = strtotime( $scriptProperties['start_date']));
+    $scriptProperties['end_date'] = date('Y-m-d', $edate = strtotime( $scriptProperties['end_date']));
 }
 
+if ( $sdate > $edate ) {
+    $modx->error->addField('end_date', $modx->lexicon('slideshowmanager.slide_err_end_date'));
+    return $modx->error->failure();
+}
 $slide->fromArray($scriptProperties);
 
 
@@ -133,22 +137,5 @@ $Sequence->addConditions(
         'end_date:>=' => $today
     ));
 $Sequence->order($slide->get('id'), $slide->get('sequence'));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 return $modx->error->success('',$slide);

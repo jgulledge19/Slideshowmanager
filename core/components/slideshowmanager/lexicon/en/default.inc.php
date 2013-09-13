@@ -157,6 +157,7 @@ $_lang['slideshowmanager.slide_file_type'] = 'File ext';
 $_lang['slideshowmanager.slide_url'] = 'Url';
 // error msgs:
 $_lang['slideshowmanager.slide_err_required'] = 'Required';
+$_lang['slideshowmanager.slide_err_end_date'] = 'The end date must be greater or equal to the start date.';
 $_lang['slideshowmanager.slide_err_save'] = 'Error saving slide';
 $_lang['slideshowmanager.slide_err_notset'] = 'ID not set';
 $_lang['slideshowmanager.slide_err_notfound'] = 'Not Found';

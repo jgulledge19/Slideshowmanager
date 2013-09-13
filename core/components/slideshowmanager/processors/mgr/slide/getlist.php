@@ -34,6 +34,7 @@ $url_array = array(
 */
 $query = $modx->newQuery('jgSlideshowSlide');
 $conditions = array('slideshow_album_id' => $album_id );
+$today = date("Y-m-d");
 switch ($sort_type) {
     case 'tbd':
         $conditions['slide_status'] = 'tbd';
@@ -42,26 +43,35 @@ switch ($sort_type) {
         break;
     case 'archive':
         $conditions['slide_status'] = 'archive';
+        $conditions = 
+        array(
+            'slideshow_album_id' => $album_id ,
+            //array('slide_status:IN' => array('live', 'archive', 'replace' )),
+            array(
+                // 
+                array('AND:slide_status:IN' => array('archive' )),
+                array(
+                    'OR:slide_status:=' => 'live',
+                    'AND:end_date:<' => $today
+                )
+            )
+        );
         $query->where($conditions);
+        $query->where($conditions, xPDOQuery::SQL_AND);
         //$query->sortby('end_date','DESC');
         break;
     case 'future':
-        $today = date("Y-m-d");
         /* @link http://rtfm.modx.com/display/xPDO20/xPDOQuery */
         $conditions = 
         array(
             'slideshow_album_id' => $album_id ,
             array(
-                // array('AND:slide_status:IN' => array('future', 'replace' )),
-                array( 'AND:slide_status:=' => 'future', 
-                    'OR:slide_status:=' => 'replace' ),
+                array('AND:slide_status:IN' => array('future', 'replace' )),
+                /*array( 'AND:slide_status:=' => 'future', 
+                    'OR:slide_status:=' => 'replace' ), */
                 array(
                     'OR:slide_status:=' => 'live',
                     'AND:start_date:>' => $today
-                ),
-                array(
-                    'OR:slide_status:=' => 'live',
-                    'AND:end_date:<' => $today
                 )
             )
         );
