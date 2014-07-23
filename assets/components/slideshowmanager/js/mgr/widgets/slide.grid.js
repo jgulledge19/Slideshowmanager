@@ -6,6 +6,7 @@ Cmp.combo.SlideStatusCreate = function(config) {
         store: ['Insert','Replace'/*,'future'*/,'TBD']
         ,mode: 'local'
         ,editable: false
+        
     });
     Cmp.combo.SlideStatusCreate.superclass.constructor.call(this,config);
 };
@@ -46,6 +47,7 @@ Cmp.combo.SlideAlbum = function(config) {
         ,baseParams: { action: 'mgr/album/getList',combo: true }
         //,mode: 'local'
         ,editable: false
+        ,cls: 'x-window-with-tabs'
     });
     Cmp.combo.SlideAlbum.superclass.constructor.call(this,config);
 };
@@ -354,7 +356,7 @@ Ext.extend(Cmp.grid.slide,MODx.grid.Grid,{
         
         if (!this.updateSlideWindow) {
             this.updateSlideWindow = MODx.load({
-            	xtype: 'cmp-window-slide-update'
+                xtype: 'cmp-window-slide-update'
                 ,record: this.menu.record
                 ,listeners: {
                     'success': {fn:this.refresh,scope:this}
@@ -369,17 +371,17 @@ Ext.extend(Cmp.grid.slide,MODx.grid.Grid,{
         
         var ImagePath = Ext.select('#currentImagePath');
         ImagePath.set({
-        	src: mySlideUrl
+            src: mySlideUrl
         });
         //console.log(albumData);
-		Ext.fly('albumUpdateDescription').dom.innerHTML = albumData.description;
+        Ext.fly('albumUpdateDescription').dom.innerHTML = albumData.description;
         Ext.fly('albumUpdateImageInstructions').dom.innerHTML = albumData.image_instructions;
         Ext.fly('albumUpdateAdvancedInstructions').dom.innerHTML = albumData.advanced_instructions;
     }
     ,createSlide: function(btn,e) {
         if (!this.createSlideWindow) {
             this.createSlideWindow = MODx.load({
-            	xtype: 'cmp-window-slide-create'
+                xtype: 'cmp-window-slide-create'
                 //,record: this.menu.record
                 ,listeners: {
                     'success': {fn:this.refresh,scope:this}
@@ -402,7 +404,7 @@ Ext.extend(Cmp.grid.slide,MODx.grid.Grid,{
         // Advanced instructions:
         // albumCreateImageInstructions
         Ext.fly('albumCreateAdvancedInstructions').dom.innerHTML = albumData.advanced_instructions;
-		
+        
     }
     ,removeSlide: function() {
         MODx.msg.confirm({
@@ -430,9 +432,12 @@ Cmp.window.UpdateSlide = function(config) {
         ,baseParams: {
             action: 'mgr/slide/update'
         }
+        ,cls: 'x-window-with-tabs'
+        ,width: 500
+        //,modal: true
         ,fileUpload:true
         ,fields: [{
-        	xtype: 'modx-tabs'
+            xtype: 'modx-tabs'
             ,bodyStyle: 'padding: 10px'
             ,border: true
             ,fileUpload:true
@@ -449,19 +454,19 @@ Cmp.window.UpdateSlide = function(config) {
                 ,layout: 'form'
                 ,cls: 'modx-panel'
                 ,items:[{
-		            xtype: 'hidden'
-		            ,name: 'id'
-		        },{
-		        	//id: 'album_description'
+                    xtype: 'hidden'
+                    ,name: 'id'
+                },{
+                    //id: 'album_description'
                     html: '<p id="albumUpdateDescription"></p><br />'
                     ,border: false
                 },{
-		            xtype: 'textfield'
-		            ,fieldLabel: _('slideshowmanager.slide_title')
-		            ,name: 'title'
+                    xtype: 'textfield'
+                    ,fieldLabel: _('slideshowmanager.slide_title')
+                    ,name: 'title'
                     ,maxLength: 100
-		            ,width: 400
-		        },{
+                    ,width: 400
+                },{
                     xtype: 'textarea'
                     ,fieldLabel: _('slideshowmanager.slide_description')
                     ,name: 'description'
@@ -473,53 +478,53 @@ Cmp.window.UpdateSlide = function(config) {
                     ,name: 'url'
                     ,width: 400
                 },{
-		            xtype: 'datefield'
-		            ,fieldLabel: _('slideshowmanager.slide_start_date')
-		            ,name: 'start_date'
-		            ,width: 150
-		            //,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
-		            ,format: MODx.config.manager_date_format
-		            //,altFormats: MODx.config.manager_date_format
-		        },{
-		            xtype: 'datefield'
-		            ,fieldLabel: _('slideshowmanager.slide_end_date')
-		            ,name: 'end_date'
-		            ,width: 150
+                    xtype: 'datefield'
+                    ,fieldLabel: _('slideshowmanager.slide_start_date')
+                    ,name: 'start_date'
+                    ,width: 150
                     //,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
                     ,format: MODx.config.manager_date_format
                     //,altFormats: MODx.config.manager_date_format
-		        },{
-		            xtype: 'textfield'
-		            ,fieldLabel: _('slideshowmanager.slide_sequence')
-		            ,name: 'sequence'
-		            ,width: 150
-		        },{
-		            xtype: 'slidestatus-combo'
-		            ,fieldLabel: _('slideshowmanager.slide_status')
-		            //,boxLabel: _('slideshowmanager.label_slide_status_insert')
-		            //,inputValue: 'live'
-		            ,renderer: 'value'
-		            ,name: 'slide_status'
-		            ,width: 300
-		        }]
-		     },{
-		     	title: _('slideshowmanager.slidetab_update_image')
+                },{
+                    xtype: 'datefield'
+                    ,fieldLabel: _('slideshowmanager.slide_end_date')
+                    ,name: 'end_date'
+                    ,width: 150
+                    //,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
+                    ,format: MODx.config.manager_date_format
+                    //,altFormats: MODx.config.manager_date_format
+                },{
+                    xtype: 'textfield'
+                    ,fieldLabel: _('slideshowmanager.slide_sequence')
+                    ,name: 'sequence'
+                    ,width: 150
+                },{
+                    xtype: 'slidestatus-combo'
+                    ,fieldLabel: _('slideshowmanager.slide_status')
+                    //,boxLabel: _('slideshowmanager.label_slide_status_insert')
+                    //,inputValue: 'live'
+                    ,renderer: 'value'
+                    ,name: 'slide_status'
+                    ,width: 300
+                }]
+             },{
+                title: _('slideshowmanager.slidetab_update_image')
                 ,border: false
                 ,defaults: { autoHeight: true } 
                 ,items: [{
-		        	//id: 'album_description'
-        	        html: '<p id="albumUpdateImageInstructions">'+_('slideshowmanager.slide_update_desc')+'</p><br />'
+                    //id: 'album_description'
+                    html: '<p id="albumUpdateImageInstructions">'+_('slideshowmanager.slide_update_desc')+'</p><br />'
                     ,border: false
                 },{
-                	html: '<img id="currentImagePath" src="'+ mySlideUrl +'" width="400" />'
-                	,fieldLabel: _('slideshowmanager.slide_upload_current_image')
-                	,name: 'image_path'
+                    html: '<img id="currentImagePath" src="'+ mySlideUrl +'" width="400" />'
+                    ,fieldLabel: _('slideshowmanager.slide_upload_current_image')
+                    ,name: 'image_path'
                 },{
-                	xtype: 'textfield'
-                	,inputType: 'file'
-                	,fieldLabel: _('slideshowmanager.slide_upload_new_image')
-                	,name: 'upload_file'
-                	,accept: 'image/jpg'
+                    xtype: 'textfield'
+                    ,inputType: 'file'
+                    ,fieldLabel: _('slideshowmanager.slide_upload_new_image')
+                    ,name: 'upload_file'
+                    ,accept: 'image/jpg'
                 }/*/{
                     xtype: 'fileuploadfield'
                     ,id: 'upload_file'
@@ -529,31 +534,31 @@ Cmp.window.UpdateSlide = function(config) {
                     ,accept: 'image/jpg'
                 }*/]
               },{
-		     	title: _('slideshowmanager.slidetab_advanced')
+                title: _('slideshowmanager.slidetab_advanced')
                 ,border: false
                 ,autoHeight: true
                 ,items:[{
-        	        html: '<p id="albumUpdateAdvancedInstructions">' + _('slideshowmanager.slide_update_desc')+'</p><br />'
+                    html: '<p id="albumUpdateAdvancedInstructions">' + _('slideshowmanager.slide_update_desc')+'</p><br />'
                     ,border: false
                 },{
-		            xtype: 'textarea'
-		            ,fieldLabel: _('slideshowmanager.slide_notes')
-		            ,name: 'notes'
-		            ,width: 400
-		        },{
-		            xtype: 'textarea'
-		            ,fieldLabel: _('slideshowmanager.slide_html')
-		            ,name: 'html'
-		            ,width: 400
-		        },{
-		            xtype: 'textarea'
-		            ,fieldLabel: _('slideshowmanager.slide_options')
-		            ,name: 'options'
-		            ,width: 400
-		        }]
-        	}]
-	 	}]
-        
+                    xtype: 'textarea'
+                    ,fieldLabel: _('slideshowmanager.slide_notes')
+                    ,name: 'notes'
+                    ,width: 400
+                },{
+                    xtype: 'textarea'
+                    ,fieldLabel: _('slideshowmanager.slide_html')
+                    ,name: 'html'
+                    ,width: 400
+                },{
+                    xtype: 'textarea'
+                    ,fieldLabel: _('slideshowmanager.slide_options')
+                    ,name: 'options'
+                    ,width: 400
+                }]
+            }]
+        }]
+       // ,cls: 'x-window-with-tabs' 
     });
     Cmp.window.UpdateSlide.superclass.constructor.call(this,config);
 };
@@ -569,9 +574,11 @@ Cmp.window.CreateSlide = function(config) {
         ,baseParams: {
             action: 'mgr/slide/create'
         }
+        ,cls: 'x-window-with-tabs'
+        ,width: 500
         ,fileUpload:true
         ,fields: [{
-        	xtype: 'modx-tabs'
+            xtype: 'modx-tabs'
             ,bodyStyle: 'padding: 10px'
             ,border: true
             ,deferredRender: false
@@ -584,23 +591,23 @@ Cmp.window.CreateSlide = function(config) {
                 ,forceLayout: true
             }
             ,items: [{
-	                title: _('slideshowmanager.slidetab_basic')
-	                ,cls: 'modx-panel'
-	                ,border: false
-	                ,defaults: { autoHeight: true }
-	                ,items:[{
+                    title: _('slideshowmanager.slidetab_basic')
+                    ,cls: 'modx-panel'
+                    ,border: false
+                    ,defaults: { autoHeight: true }
+                    ,items:[{
                         xtype: 'hidden'
                         ,name: 'album_id'
-	                },{
-	        	        html: '<p id="albumCreateDescription"></p><br />'
-	                    ,border: false
-	                },{
-			            xtype: 'textfield'
-			            ,fieldLabel: _('slideshowmanager.slide_title')
+                    },{
+                        html: '<p id="albumCreateDescription"></p><br />'
+                        ,border: false
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.slide_title')
                         ,maxLength: 100
-			            ,name: 'title'
-			            ,width: 400
-			        },{
+                        ,name: 'title'
+                        ,width: 400
+                    },{
                         xtype: 'textarea'
                         ,fieldLabel: _('slideshowmanager.slide_description')
                         ,name: 'description'
@@ -612,10 +619,10 @@ Cmp.window.CreateSlide = function(config) {
                         ,name: 'url'
                         ,width: 400
                     },{
-			            xtype: 'datefield'
-			            ,fieldLabel: _('slideshowmanager.slide_start_date')
-			            ,name: 'start_date'
-			            ,inputValue: slideToday
+                        xtype: 'datefield'
+                        ,fieldLabel: _('slideshowmanager.slide_start_date')
+                        ,name: 'start_date'
+                        ,inputValue: slideToday
                     ,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
                     ,format: MODx.config.manager_date_format
                     //,altFormats: MODx.config.manager_date_format
@@ -623,70 +630,70 @@ Cmp.window.CreateSlide = function(config) {
                     ,editor: { xtype: 'datefield' } // datefield
                     //,xtype: 'datecolumn'
                     
-			            ,width: 150
-			        },{
-			            xtype: 'datefield'
-			            ,fieldLabel: _('slideshowmanager.slide_end_date')
-			            ,name: 'end_date'
-			            ,inputValue: slideEnd
+                        ,width: 150
+                    },{
+                        xtype: 'datefield'
+                        ,fieldLabel: _('slideshowmanager.slide_end_date')
+                        ,name: 'end_date'
+                        ,inputValue: slideEnd
                     ,renderer : Ext.util.Format.dateRenderer(MODx.config.manager_date_format)
                     ,format: MODx.config.manager_date_format
                     //,altFormats: MODx.config.manager_date_format
-			            ,width: 150
-			        },{
-			            xtype: 'textfield'
-			            ,fieldLabel: _('slideshowmanager.slide_sequence')
-			            ,name: 'sequence'
-			            ,width: 150
-			        },{
-			            xtype: 'slidestatus-create-combo'
-			            ,fieldLabel: _('slideshowmanager.slide_status')
-			            //,boxLabel: _('slideshowmanager.label_slide_status_insert')
-			            ,inputValue: 'insert'
-			            ,renderer: 'value'
-			            ,name: 'slide_status'
-			            ,width: 300
-			        }]
-			     },{
-			     	title: _('slideshowmanager.slidetab_image')
-	                ,border: false
-	                ,defaults: { autoHeight: true } 
-	                ,items: [{
-			        	//id: 'album_description'
-	        	        html: '<p id="albumCreateImageInstructions">'+_('slideshowmanager.slide_update_desc')+'</p><br />'
-	                    ,border: false
-	                },{
-	                	xtype: 'textfield'
-	                	,inputType: 'file'
-	                	,fieldLabel: _('slideshowmanager.slide_upload_new_image')
-	                	,name: 'upload_file'
-	                	,accept: 'image/jpg'
-	                }]
-	             },{
-			     	title: _('slideshowmanager.slidetab_advanced')
-	                ,border: false
-	                ,autoHeight: true
-	                ,items:[{
-	        	        html: '<p id="albumCreateAdvancedInstructions">'+_('slideshowmanager.slide_update_desc')+'</p><br />'
-	                    ,border: false
-	                },{
-			            xtype: 'textarea'
-			            ,fieldLabel: _('slideshowmanager.slide_notes')
-			            ,name: 'notes'
-			            ,width: 400
-			        },{
-			            xtype: 'textarea'
-			            ,fieldLabel: _('slideshowmanager.slide_html')
-			            ,name: 'html'
-			            ,width: 400
-			        },{
-			            xtype: 'textarea'
-			            ,fieldLabel: _('slideshowmanager.slide_options')
-			            ,name: 'options'
-			            ,width: 400
-			        }]
-	        	}]
-		 	}]
+                        ,width: 150
+                    },{
+                        xtype: 'textfield'
+                        ,fieldLabel: _('slideshowmanager.slide_sequence')
+                        ,name: 'sequence'
+                        ,width: 150
+                    },{
+                        xtype: 'slidestatus-create-combo'
+                        ,fieldLabel: _('slideshowmanager.slide_status')
+                        //,boxLabel: _('slideshowmanager.label_slide_status_insert')
+                        ,inputValue: 'insert'
+                        ,renderer: 'value'
+                        ,name: 'slide_status'
+                        ,width: 300
+                    }]
+                 },{
+                    title: _('slideshowmanager.slidetab_image')
+                    ,border: false
+                    ,defaults: { autoHeight: true } 
+                    ,items: [{
+                        //id: 'album_description'
+                        html: '<p id="albumCreateImageInstructions">'+_('slideshowmanager.slide_update_desc')+'</p><br />'
+                        ,border: false
+                    },{
+                        xtype: 'textfield'
+                        ,inputType: 'file'
+                        ,fieldLabel: _('slideshowmanager.slide_upload_new_image')
+                        ,name: 'upload_file'
+                        ,accept: 'image/jpg'
+                    }]
+                 },{
+                    title: _('slideshowmanager.slidetab_advanced')
+                    ,border: false
+                    ,autoHeight: true
+                    ,items:[{
+                        html: '<p id="albumCreateAdvancedInstructions">'+_('slideshowmanager.slide_update_desc')+'</p><br />'
+                        ,border: false
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.slide_notes')
+                        ,name: 'notes'
+                        ,width: 400
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.slide_html')
+                        ,name: 'html'
+                        ,width: 400
+                    },{
+                        xtype: 'textarea'
+                        ,fieldLabel: _('slideshowmanager.slide_options')
+                        ,name: 'options'
+                        ,width: 400
+                    }]
+                }]
+            }]
     });
     Cmp.window.CreateSlide.superclass.constructor.call(this,config);
 };
