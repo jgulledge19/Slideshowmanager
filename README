@@ -1,3 +1,5 @@
+This branch is for MODX version 2.2 and 2.1 and is now legacy code.
+
 SlideshowManager is a CMP (custom manager page) and snippet for MODX Revolution.  The manager allows you to easily upload new slides and schedule 
 them based on start date and end date.  You can also just put slides in a TBD (to be determined).  Slideshow Manager allows you 
 to have as many slides shows, called albums, as you want on your site.
