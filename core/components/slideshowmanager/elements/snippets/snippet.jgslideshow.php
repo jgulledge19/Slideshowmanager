@@ -15,11 +15,19 @@ $skin = $modx->getOption('skin', $scriptProperties, 'nivo');
 $head = $modx->getOption('headTpl', $scriptProperties, $skin.'_headTpl' );
 $slide_holder = $modx->getOption('slideHolderTpl', $scriptProperties, $skin.'_slideHolderTpl' );
 $slide_pane = $modx->getOption('slidePaneTpl', $scriptProperties, $skin.'_slidePaneTpl' );
-$slide_pane_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'_slideLinkTpl' );
+$slide_link = $modx->getOption('slideLinkTpl', $scriptProperties, $skin.'_slideLinkTpl' );
+$slide_pane_link = $modx->getOption('slidePaneLinkTpl', $scriptProperties, $slide_link ); // with a link
+
 $html_caption = $modx->getOption('htmlCaptionTpl', $scriptProperties, $skin.'_htmlCaptionTpl' );
+
+/* added 1.1.4 */
+$use_head = $modx->getOption('use_headTpl', $scriptProperties, true );
+$use_slide_holder = $modx->getOption('use_slideHolderTpl', $scriptProperties, true );
+$use_html_caption = $modx->getOption('use_htmlCaptionTpl', $scriptProperties, true );
+
+
 $ignore_time = (boolean) $modx->getOption('ignoreTime', $scriptProperties, false );
 $ignore_endtime = (boolean) $modx->getOption('ignoreEndTime', $scriptProperties, false );
-//$head = $modx->getOption('headTpl', $scriptProperties, $skin.'' );
 
 $loadJQuery = $modx->getOption('loadJQuery', $scriptProperties, 'true');
 
@@ -47,15 +55,6 @@ if ( !$ignore_time ) {
 $query->where($c);
 $query->sortby('sequence','ASC');
 
-//$oldTarget = $modx->setLogTarget('HTML');
-// your code here
-//$c->limit(5);
-//$slides = $modx->getCollection('jgSlideshowSlide',$query);
-//$output .= $query->toSQL();
-
-// restore the default logging (to file)
-//$modx->setLogTarget($oldTarget);
-
 $slide_output = '';
 $html_cap_output = '';
 $count = 0;
@@ -82,7 +81,9 @@ while ( $slide_data = $stmt->fetch(PDO::FETCH_ASSOC) ) {
     }
     // create html caption
     //if ( !empty($slide_data['html']) || !empty($slide_data['description']) ){
+    if ( $use_html_caption ) {
         $html_cap_output .= $modx->getChunk($html_caption, $slide_data);
+    }
     //}
     
 }
@@ -95,13 +96,18 @@ if ( is_object($slideAlbum) ) {
     $album_data['slide_div_id'] = $slide_div_id;
     $album_data['slide_count'] = $count;
     $album_data['loadJQuery'] = $loadJQuery;
-    $modx->regClientStartupHTMLBlock($modx->getChunk($head, $album_data));
+    if ( $use_head ) {
+        $modx->regClientStartupHTMLBlock($modx->getChunk($head, $album_data));
+    }
     
     $album_data['slide_panes'] = $slide_output;
     $album_data['html_caption'] = $html_cap_output;
 }
-$output .= $modx->getChunk($slide_holder, $album_data);
-
+if ( $use_slide_holder ){
+    $output .= $modx->getChunk($slide_holder, $album_data);
+} else {
+    $output = $slide_output;
+}
 $toPlaceholder = $modx->getOption('toPlaceholder', $scriptProperties, '' );
 if ( !empty($toPlaceholder) ) {
     $modx->setPlaceholder($toPlaceholder, $output);
