@@ -1,6 +1,11 @@
 Changelog for slideshowmanager.
 
 
+SlideshowManager 1.1.4 pl  5/04/2015
+===========================
+ - Public update to MODX 2.3pl, CSS Changes for Manager, #23
+ - Added #24 Allow no Chunks to be sent to <head>
+ - Fix install/build error message
  
 SlideshowManager 1.1.3 pl  9/13/2013
 ===========================

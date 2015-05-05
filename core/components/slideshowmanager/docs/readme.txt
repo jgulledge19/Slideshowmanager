@@ -1,9 +1,10 @@
 --------------------
 slideshowmanager
 --------------------
-Version: 1.1.1 pl
+Version: 1.1.4 pl
+Date: May 5th, 2015
 Since: July 11th, 2012
-Author: Joshua Gulledge <jgulledge19@hotmail.com>
+Author: Joshua Gulledge <https://github.com/jgulledge19/Slideshowmanager/>
 License: GNU GPLv2 (or later at your option)
 
 Slideshow manager is a CMP (custom manager page) and snippet for MODX Revolution.  The manager allows you to easily upload new slides and schedule 
