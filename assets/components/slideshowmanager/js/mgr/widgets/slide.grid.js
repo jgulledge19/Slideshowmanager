@@ -433,7 +433,7 @@ Cmp.window.UpdateSlide = function(config) {
             action: 'mgr/slide/update'
         }
         ,cls: 'x-window-with-tabs'
-        ,width: 500
+        ,width: 750
         //,modal: true
         ,fileUpload:true
         ,fields: [{
@@ -575,7 +575,7 @@ Cmp.window.CreateSlide = function(config) {
             action: 'mgr/slide/create'
         }
         ,cls: 'x-window-with-tabs'
-        ,width: 500
+        ,width: 750
         ,fileUpload:true
         ,fields: [{
             xtype: 'modx-tabs'
