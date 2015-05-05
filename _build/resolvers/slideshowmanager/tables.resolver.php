@@ -64,7 +64,7 @@ if ($object->xpdo) {
                     'title' => 'My Slideshow', 
                     'description' => 'This is the default slideshow',
                     'file_allowed' => 'jpg, jpeg|png|',
-                    'file_size_limit' => '200',
+                    'file_size_limit' => '300',
                     'file_width' => '600',
                     'file_height' => '400',
                     'icon_path' => '',

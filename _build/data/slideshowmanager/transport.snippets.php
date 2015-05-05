@@ -41,7 +41,7 @@ $snippets[1]= $modx->newObject('modSnippet');
 $snippets[1]->fromArray(array(
     'id' => 1, // set this in order not the ID for the snippet
     'name' => 'jgSlideShow',
-    'description' => 'Display a slide show',
+    'description' => 'Display a slide show from Slideshow Manager',
     'snippet' => getSnippetContent($sources['source_core'].'/elements/snippets/snippet.jgslideshow.php'),
 ),'',true,true);
 //$properties = include $sources['data'].'/properties/properties.mysnippet1.php';

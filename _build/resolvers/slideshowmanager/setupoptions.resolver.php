@@ -46,7 +46,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                     'title' => 'My Slideshow', 
                     'description' => 'This is the default slideshow',
                     'file_allowed' => 'jpg, jpeg|png|',
-                    'file_size_limit' => '200',
+                    'file_size_limit' => '300',
                     'file_width' => '600',
                     'file_height' => '400',
                     'icon_path' => '',
@@ -122,6 +122,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 }
             }
         }
+        $success= true;
         break;
     case xPDOTransport::ACTION_UPGRADE:
         $success= true;
